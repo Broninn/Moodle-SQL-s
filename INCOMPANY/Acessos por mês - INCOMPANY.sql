@@ -1,0 +1,1 @@
+SELECT DISTINCT userid AS 'UID', FROM_UNIXTIME(timecreated, '%m/%Y') AS 'DATA', 'INCOMPANY' AS 'INSTANCIA' FROM p_incompany.mdl_logstore_standard_log WHERE userid > 2 AND `action` = 'loggedin' AND ( ( YEAR(FROM_UNIXTIME(timecreated)) = 2020 AND MONTH(FROM_UNIXTIME(timecreated)) > 1 ) OR YEAR(FROM_UNIXTIME(timecreated)) > 2020 )

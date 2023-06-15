@@ -1,0 +1,1 @@
+select count(distinct(userid)) as "ACESSOS", to_char(to_timestamp(timecreated), 'dd/MM/yyyy') as "DATA", 'Fiep.Digital' as "INSTANCIA" from mdl_logstore_standard_log where "action" = 'loggedin' group by "DATA"

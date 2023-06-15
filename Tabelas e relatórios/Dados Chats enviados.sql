@@ -1,0 +1,2 @@
+select mm.conversationid, mm.useridfrom, concat(mu.firstname, ' ', mu.lastname) as origem, mmcm.userid, concat(mu2.firstname, ' ', mu2.lastname) as destino, to_timestamp(mm.timecreated) as Envio from mdl_messages mm inner join mdl_message_conversation_members mmcm on mmcm.conversationid = mm.conversationid inner join mdl_user mu on mu.id = mm.useridfrom inner join mdl_user mu2 on mu2.id = mmcm.userid and mm.useridfrom != mmcm.userid
+
