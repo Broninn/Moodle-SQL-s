@@ -1,0 +1,72 @@
+-- PARA IEL Graduação Presencial
+select 
+  
+  CONCAT( u.firstname, ' ',  u.lastname)as "Nome",
+  c.id as "CourseID",
+  c.fullname as "Disciplina", 
+  g.name as "Turma",
+  to_timestamp(ue.timestart)  as "Data Início",
+  to_timestamp(ue.timeend) as "Data Fim"
+  --RIGHT(LEFT(cc.path, -10), -23), 
+  --cc.path,
+from 
+  mdl_course as c 
+inner join mdl_course_categories cc on 
+  cc.id = c.category 
+  and ( cc."path" like '%/3539%'or 
+        cc."path" like '%/4112%' or
+        cc."path" like '%/3441%'
+)
+inner join mdl_groups g on 
+  g.courseid = c.id
+inner join mdl_enrol e on
+  e.courseid = c.id
+  and e.enrol = 'manual'
+inner join mdl_groups_members gm on
+  gm.groupid = g.id
+inner join mdl_user_enrolments ue on
+  ue.userid = gm.userid
+  and ue.enrolid = e.id
+inner join mdl_user u on
+  u.id = ue.userid
+order by c.fullname
+
+
+
+
+
+
+
+
+-- PARA SENAI Graduação Presencial
+select 
+  
+  CONCAT( u.firstname, ' ',  u.lastname)as "Nome",
+  c.id as "CourseID",
+  c.fullname as "Disciplina", 
+  g.name as "Turma",
+  to_timestamp(ue.timestart)  as "Data Início",
+  to_timestamp(ue.timeend) as "Data Fim"
+  --RIGHT(LEFT(cc.path, -10), -23), 
+  --cc.path,
+from 
+  mdl_course as c 
+inner join mdl_course_categories cc on 
+  cc.id = c.category 
+  and ( 
+        cc."path" like '%/3473%' or
+        cc."path" like '%/3568%' 
+)
+inner join mdl_groups g on 
+  g.courseid = c.id
+inner join mdl_enrol e on
+  e.courseid = c.id
+  and e.enrol = 'manual'
+inner join mdl_groups_members gm on
+  gm.groupid = g.id
+inner join mdl_user_enrolments ue on
+  ue.userid = gm.userid
+  and ue.enrolid = e.id
+inner join mdl_user u on
+  u.id = ue.userid
+order by c.fullname

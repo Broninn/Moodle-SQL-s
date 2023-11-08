@@ -1,0 +1,35 @@
+--SENAI
+select mcc4.name, mcc2.name, concat('https://ava.fiep.digital/user/index.php?id=',  c.id), c.fullname, c.shortname, c.idnumber, c.visible from mdl_course c
+inner join mdl_course_categories cc on cc.id = c.category and cc.path like '%/64/%'
+inner join mdl_course_categories mcc on mcc.id = c.category
+inner join mdl_course_categories mcc2 on mcc2.id = mcc.parent
+inner join mdl_course_categories mcc3 on mcc3.id = mcc2.parent
+inner join mdl_course_categories mcc4 on mcc4.id = mcc3.parent
+left join mdl_competency_coursecomp comp on comp.courseid = c.id
+WHERE comp.courseid IS NULL and c.visible = 1
+order by 1, 2 desc
+
+
+--SESI
+select mcc4.name, mcc2.name, concat('https://ava.fiep.digital/user/index.php?id=',  c.id), c.fullname, c.shortname, c.idnumber, c.visible from mdl_course c
+inner join mdl_course_categories cc on cc.id = c.category and cc.path like '%/803/%'
+inner join mdl_course_categories mcc on mcc.id = c.category
+inner join mdl_course_categories mcc2 on mcc2.id = mcc.parent
+inner join mdl_course_categories mcc3 on mcc3.id = mcc2.parent
+inner join mdl_course_categories mcc4 on mcc4.id = mcc3.parent
+left join mdl_competency_coursecomp comp on comp.courseid = c.id
+WHERE comp.courseid IS NULL and c.visible = 1
+order by 2
+
+
+--IEL
+select mcc4.name, mcc2.name, concat('https://ava.fiep.digital/user/index.php?id=',  c.id)s, c.fullname, c.shortname, c.idnumber, c.visible from mdl_course c
+inner join mdl_course_categories cc on cc.id = c.category and cc.path like '%/743/%'
+inner join mdl_course_categories mcc on mcc.id = c.category
+inner join mdl_course_categories mcc2 on mcc2.id = mcc.parent
+inner join mdl_course_categories mcc3 on mcc3.id = mcc2.parent
+inner join mdl_course_categories mcc4 on mcc4.id = mcc3.parent
+left join mdl_competency_coursecomp comp on comp.courseid = c.id
+WHERE comp.courseid IS NULL and c.visible = 1
+order by 2
+
