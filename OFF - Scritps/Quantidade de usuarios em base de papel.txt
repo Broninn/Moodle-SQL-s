@@ -1,0 +1,14 @@
+select count(distinct u.id)
+--select distinct u.id, concat(u.firstname, ' ', u.lastname)
+from mdl_user u
+inner join mdl_role_assignments ra on u.id = ra.userid
+inner join mdl_user_enrolments ue on ue.userid = u.id
+inner join mdl_enrol e on e.id = ue.enrolid
+
+--1487 roleid = 4
+
+where ra.roleid = 3 and
+ue.status = 0
+
+
+limit 1000

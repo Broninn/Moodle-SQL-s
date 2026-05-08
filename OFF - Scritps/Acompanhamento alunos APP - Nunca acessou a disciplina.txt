@@ -1,0 +1,33 @@
+SELECT 
+	cc4.name as "Período",
+	cc3.name as "Mediação",
+	c.fullname as "Disciplinas",
+	concat('https://ava.fiep.digital/course/view.php?id=', c.id),
+	concat(u.firstname, ' ', u.lastname) as "Nome",
+	gp.name as "Turma",
+	gpn.name as "Unidade"
+FROM mdl_user_enrolments ue
+	INNER JOIN mdl_enrol e ON e.id = ue.enrolid 
+		AND e.status = 0
+		AND e.enrol = 'manual'
+	INNER JOIN mdl_course c ON c.id = e.courseid 
+	INNER JOIN mdl_course_categories cc on cc.id = c.category 
+		AND cc.path like '%/69/%' 
+		AND cc.name like '%PERIODO%'
+	INNER JOIN mdl_course_categories cc2 on cc2.id = cc.parent 
+	INNER JOIN mdl_course_categories cc3 on cc3.id = cc2.parent 
+	INNER JOIN mdl_course_categories cc4 on cc4.id = cc3.parent 
+	INNER JOIN mdl_context ct ON ct.contextlevel = 50 AND ct.instanceid = c.id
+	INNER JOIN mdl_role_assignments ra ON ra.contextid = ct.id AND ra.userid = ue.userid AND ra.roleid = 5
+	INNER JOIN mdl_user u on u.id = ue.userid
+	INNER JOIN mdl_groups gp on gp.courseid = c.id
+	INNER JOIN mdl_groupings_groups gpg ON gpg.groupid = gp.id
+    INNER JOIN mdl_groupings gpn ON gpn.id = gpg.groupingid AND gpn.courseid = c.id AND gpn.idnumber IS NOT NULL AND gpn.idnumber != ''
+	INNER JOIN mdl_groups_members gm on gm.groupid = gp.id and gm.userid = u.id
+WHERE ue.status = 0
+	AND (ue.timeend > EXTRACT(EPOCH FROM NOW()))
+	AND ue.userid NOT IN (
+		SELECT userid FROM mdl_user_lastaccess ula
+		WHERE ula.courseid = c.id AND ula.timeaccess > 0
+	)
+ORDER BY 1, 2, 3, 6, 5, 4;

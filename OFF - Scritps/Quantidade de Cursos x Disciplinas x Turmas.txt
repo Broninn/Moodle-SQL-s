@@ -1,0 +1,82 @@
+WITH resumo_detalhado AS (
+    SELECT 
+        cc4.name AS "Ano",
+        cc3.name AS "Modalidade", 
+        cc2.name AS "Curso",
+        cc.name AS "Periodo",
+        c.fullname AS "Disciplina",
+        COUNT(DISTINCT g.id)::text AS "Qtd_Turmas"
+    FROM mdl_course c 
+    INNER JOIN mdl_course_categories cc ON cc.id = c.category 
+        AND cc.path LIKE '%/67/%' 
+        AND cc.name LIKE '%PERIODO%'
+    INNER JOIN mdl_course_categories cc2 ON cc2.id = cc.parent
+    INNER JOIN mdl_course_categories cc3 ON cc3.id = cc2.parent
+    INNER JOIN mdl_course_categories cc4 ON cc4.id = cc3.parent
+    INNER JOIN mdl_groups g ON g.courseid = c.id
+    INNER JOIN mdl_groups_members gpm ON gpm.groupid = g.id
+    WHERE c.fullname LIKE '% 2025%'
+    GROUP BY 
+        cc4.name, cc3.name, cc2.name, cc.name, c.fullname, c.id
+    HAVING COUNT(DISTINCT g.id) > 0
+),
+resumo_consolidado AS (
+    SELECT 
+        r."Modalidade",
+        COUNT(DISTINCT r."Curso")::text AS "Qtd_Cursos",
+        COUNT(DISTINCT r."Disciplina")::text AS "Qtd_Disciplinas", 
+        SUM(r."Qtd_Turmas"::bigint)::text AS "Qtd_Turmas"
+    FROM resumo_detalhado r
+    GROUP BY r."Modalidade"
+)
+SELECT 
+    'DETALHAMENTO' AS tipo_relatorio,
+    "Ano", "Modalidade", "Curso", "Periodo", "Disciplina", "Qtd_Turmas"
+FROM resumo_detalhado
+    
+UNION ALL
+    
+SELECT 
+    'RESUMO' AS tipo_relatorio,
+    NULL::text AS "Ano", 
+    "Modalidade", 
+    "Qtd_Cursos" AS "Curso",
+    NULL::text AS "Periodo",  -- ← Reaproveita a coluna Periodo para Disciplinas
+    "Qtd_Disciplinas" AS "Disciplina", 
+    "Qtd_Turmas"
+FROM resumo_consolidado
+
+ORDER BY tipo_relatorio DESC, "Modalidade", "Curso";
+
+
+
+#######################################################
+
+
+
+SELECT 
+    cc4.name AS "Ano",
+    cc3.name AS "Modalidade", 
+    cc2.name AS "Curso",
+    cc.name AS "Periodo",
+    c.fullname AS "Disciplina",
+    COUNT(DISTINCT g.id) AS "Qtd_Turmas"
+FROM mdl_course c 
+INNER JOIN mdl_course_categories cc ON cc.id = c.category 
+    AND cc.path LIKE '%/68/%' 
+    AND cc.name LIKE '%PERIODO%'
+INNER JOIN mdl_course_categories cc2 ON cc2.id = cc.parent
+INNER JOIN mdl_course_categories cc3 ON cc3.id = cc2.parent
+INNER JOIN mdl_course_categories cc4 ON cc4.id = cc3.parent
+INNER JOIN mdl_groups g ON g.courseid = c.id
+INNER JOIN mdl_groups_members gpm ON gpm.groupid = g.id  -- ← Só turmas com membros!
+WHERE c.fullname LIKE '% 2025%'
+GROUP BY 
+    cc4.name, 
+    cc3.name, 
+    cc2.name,
+    cc.name, 
+    c.fullname,
+    c.id
+HAVING COUNT(DISTINCT g.id) > 0  -- ← Garante que só mostra cursos com turmas ativas
+ORDER BY cc3.name, cc4.name, cc2.name, cc.name, c.fullname

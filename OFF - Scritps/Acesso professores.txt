@@ -1,0 +1,209 @@
+WITH salas AS (
+SELECT
+c.id AS "Sala",
+c.fullname AS "Disciplina",
+cc2.name AS "Curso",
+cc3.name AS "Mediação",
+cc4.name AS "Periodo"
+FROM mdl_course c
+INNER JOIN mdl_course_categories cc
+ON cc.id = c.category
+AND cc.path LIKE '%/68/%'
+--AND c.id = 38427
+INNER JOIN mdl_course_categories cc2
+ON cc2.id = cc.parent
+AND cc2.name NOT LIKE '%PERIODO%'
+INNER JOIN mdl_course_categories cc3
+ON cc3.id = cc2.parent
+INNER JOIN mdl_course_categories cc4
+ON cc4.id = cc3.parent
+INNER JOIN mdl_course_categories cc5
+ON cc5.id = cc4.parent
+AND (cc4.name LIKE '%2025%' or cc4.name LIKE '%2026%')
+),
+professores AS (
+SELECT
+s."Sala" AS course_id,
+CONCAT(u.firstname, ' ', u.lastname) AS nome,
+u.id AS professor_id,
+ula.timeaccess
+FROM mdl_enrol e
+INNER JOIN salas s
+ON s."Sala" = e.courseid
+INNER JOIN mdl_cohort ch
+ON ch.id = e.customint1
+INNER JOIN mdl_cohort_members chm
+ON chm.cohortid = ch.id
+INNER JOIN mdl_user u
+ON u.id = chm.userid
+LEFT JOIN mdl_user_lastaccess ula
+ON ula.userid = u.id
+AND ula.courseid = s."Sala"
+WHERE e.enrol = 'cohort'
+AND e.status = 0
+AND e.roleid = 3 -- professor
+),
+dedicacao_professores AS (
+SELECT
+bd.userid,
+bd.courseid,
+SUM(bd.timespent) AS total_segundos
+FROM mdl_block_dedication bd
+WHERE bd.courseid IN (SELECT "Sala" FROM salas)
+AND EXISTS (
+SELECT 1
+FROM professores p
+WHERE p.professor_id = bd.userid
+AND p.course_id = bd.courseid
+)
+GROUP BY bd.userid, bd.courseid
+),
+-- Logs brutos de FDS (já com data/hora formatada)
+acessos_fds_brutos AS (
+SELECT
+l.userid,
+l.courseid,
+EXTRACT(
+DOW FROM TO_TIMESTAMP(l.timecreated) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00'
+)::int AS dow,
+TO_CHAR(
+TO_TIMESTAMP(l.timecreated) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00',
+'DD/MM/YYYY ":" HH24:MI'
+) AS datahora_br
+FROM mdl_logstore_standard_log l
+INNER JOIN mdl_context ctx
+ON ctx.id = l.contextid
+AND ctx.contextlevel = 50
+WHERE l.courseid IN (SELECT "Sala" FROM salas)
+AND EXISTS (
+SELECT 1
+FROM professores p
+WHERE p.professor_id = l.userid
+AND p.course_id = l.courseid
+)
+AND l.eventname = '\\core\\event\\course_viewed'
+AND l.action = 'viewed'
+AND l.target = 'course'
+AND l.other = 'null'
+AND EXTRACT(
+DOW FROM TO_TIMESTAMP(l.timecreated) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00'
+) IN (0, 6) -- 0=Dom, 6=Sáb
+),
+-- Agrega por usuário/curso, separando domingos e sábados
+acessos_fds_agregados AS (
+SELECT
+userid,
+courseid,
+STRING_AGG(datahora_br, ' e ' ORDER BY datahora_br) FILTER (WHERE dow = 0) AS domingos,
+STRING_AGG(datahora_br, ' e ' ORDER BY datahora_br) FILTER (WHERE dow = 6) AS sabados
+FROM acessos_fds_brutos
+GROUP BY userid, courseid
+),
+-- Monta a frase final
+acessos_fds AS (
+SELECT
+userid,
+courseid,
+CASE
+WHEN domingos IS NULL AND sabados IS NULL THEN NULL
+WHEN domingos IS NOT NULL AND sabados IS NOT NULL THEN
+'Domingo(s): ' || domingos || ' | Sábado(s): ' || sabados
+WHEN domingos IS NOT NULL THEN
+'Domingo(s): ' || domingos
+ELSE
+'Sábado(s): ' || sabados
+END AS detalhes_fds
+FROM acessos_fds_agregados
+),
+alunos_count AS (
+SELECT
+e.courseid,
+--g.id as group_id,
+COUNT(DISTINCT ue.userid) AS total_alunos
+FROM mdl_user_enrolments ue
+INNER JOIN mdl_enrol e ON ue.enrolid = e.id AND e.enrol = 'manual'
+INNER JOIN salas s on s."Sala" = e.courseid
+INNER JOIN mdl_context ctx ON ctx.instanceid = s."Sala" AND ctx.contextlevel = 50
+INNER JOIN mdl_role_assignments ra ON ra.contextid = ctx.id AND ra.roleid = 5 AND ra.userid = ue.userid
+--INNER JOIN mdl_groups_members gm ON gm.userid = ue.userid
+--INNER JOIN mdl_groups g ON g.id = gm.groupid AND g.courseid = e.courseid
+WHERE ue.status = 0 AND timeend <> 0 AND timeend > extract(epoch from now())
+GROUP BY e.courseid--, g.id
+)
+SELECT
+s."Periodo",
+s."Mediação",
+s."Curso",
+s."Disciplina",
+CONCAT('https://ava.fiep.digital/user/index.php?id=', s."Sala") AS link_curso,
+CASE
+WHEN p.nome IS NULL THEN 'Sem professor vinculado'
+WHEN u.firstaccess IS NULL THEN 'Nunca fez login'
+ELSE TO_CHAR(
+TO_TIMESTAMP(u.firstaccess) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00',
+'DD/MM/YYYY HH24:MI:SS'
+)
+END AS "Primeiro login na plataforma",
+CASE
+WHEN p.nome IS NULL THEN 'Sem professor vinculado'
+WHEN u.lastaccess IS NULL THEN 'Nunca acessou a plataforma'
+WHEN u.lastaccess < 1582023948 THEN 'Nunca acessou a plataforma'
+ELSE TO_CHAR(
+TO_TIMESTAMP(u.lastaccess) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00',
+'DD/MM/YYYY HH24:MI:SS'
+)
+END AS "Ultimo login na plataforma",
+CASE
+WHEN p.nome IS NULL THEN 'Sem professor vinculado'
+WHEN p.timeaccess IS NULL THEN 'Nunca acessou a disciplina'
+ELSE TO_CHAR(
+TO_TIMESTAMP(p.timeaccess) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00',
+'DD/MM/YYYY HH24:MI:SS'
+)
+END AS "Ultimo acesso a sala",
+p.nome AS "Nome Professor",
+CASE
+WHEN dm.total_segundos IS NULL THEN 'Nunca acessou'
+ELSE TRIM(
+BOTH FROM
+CONCAT(
+CASE
+WHEN EXTRACT(hour FROM make_interval(secs => dm.total_segundos)) > 0
+THEN EXTRACT(hour FROM make_interval(secs => dm.total_segundos)) || 'h '
+ELSE ''
+END,
+EXTRACT(minute FROM make_interval(secs => dm.total_segundos)) || 'min'
+)
+)
+END AS "Tempo de dedicacao",
+ac.total_alunos,
+COALESCE(af.detalhes_fds, 'Não/Sem logs FDS') AS "Acessos FDS (datas/horas)"
+FROM mdl_enrol e
+INNER JOIN salas s
+ON s."Sala" = e.courseid
+INNER JOIN mdl_cohort ch
+ON ch.id = e.customint1
+INNER JOIN mdl_cohort_members chm
+ON chm.cohortid = ch.id
+INNER JOIN mdl_user u
+ON u.id = chm.userid
+LEFT JOIN professores p
+ON p.course_id = s."Sala"
+AND p.professor_id = chm.userid
+LEFT JOIN alunos_count ac
+ON ac.courseid = s."Sala"
+LEFT JOIN dedicacao_professores dm
+ON dm.userid = p.professor_id
+AND dm.courseid = p.course_id
+LEFT JOIN acessos_fds af
+ON af.userid = p.professor_id
+AND af.courseid = p.course_id
+WHERE e.enrol = 'cohort'
+AND e.status = 0
+AND e.roleid = 3
+ORDER BY
+s."Periodo",
+s."Curso",
+s."Disciplina",
+u.lastname,
+u.firstname;

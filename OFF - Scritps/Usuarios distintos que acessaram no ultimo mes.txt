@@ -1,0 +1,7 @@
+-- Usuarios distintos que acessaram no ultimo mes
+SELECT count(DISTINCT other)
+FROM mdl_logstore_standard_log
+WHERE eventname LIKE '%logg%'
+  AND timecreated BETWEEN EXTRACT(EPOCH FROM (NOW() - INTERVAL '1 month'))::bigint
+                       AND EXTRACT(EPOCH FROM NOW())::bigint
+  AND other LIKE '%{"username"%'

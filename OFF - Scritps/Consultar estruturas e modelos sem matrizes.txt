@@ -1,0 +1,70 @@
+--Validar estruturas de competencias
+
+SELECT * FROM "mdl_competency_template"
+where description not like '%QUA0%' and
+description not like '%TEC0%' and
+description not like '%PGE%' and
+description not like '%APB0%' and
+description not like '%APTG%' and
+description not like '%APP%' and
+description not like '%APBG%' and
+description not like '%ECOE%' and
+description not like '%EJA%' and
+description not like '%EMNEM%' and
+description not like '%ECOC%' and
+description not like '%ECOG%' and
+description not like '%Política%' and
+description not like '%Talento%' and
+description not like 'Gestão da Produção Industrial' and
+description not like '%EXT%' and
+description not like '%QUAM%' and
+description not like '%QUAG%' and
+description not like '%QUA%' and
+description not like '%GRT%' and
+description not like '%GRL%' and
+description not like '%GRB%' and
+description not like '%EM1%' and
+description not like '%EM2%' and
+description not like '%EM3%' and
+description not like '%INI0%' and
+description not like '%EMT%' and
+description not like '%APD%' and
+description not like '%APPM%'
+order by 1
+
+
+
+--validar modelo de plano de aprendizagem
+
+SELECT * FROM mdl_competency_framework
+where description not like '%QUA0%' and
+description not like '%TEC0%' and
+description not like '%PGE%' and
+description not like '%APB0%' and
+description not like '%APTG%' and
+description not like '%APP%' and
+description not like '%APBG%' and
+description not like '%ECOE%' and
+description not like '%EJA%' and
+description not like '%EMNEM%' and
+description not like '%ECOC%' and
+description not like '%ECOG%' and
+description not like '%Política%' and
+description not like '%Talento%' and
+description not like 'Gestão da Produção Industrial' and
+description not like 'gestão da produção industrial' and
+description not like '%EXT%' and
+description not like '%QUAM%' and
+description not like '%QUAG%' and
+description not like '%QUA%' and
+description not like '%GRT%' and
+description not like '%GRL%' and
+description not like '%GRB%' and
+description not like '%EM1%' and
+description not like '%EM2%' and
+description not like '%EM3%' and
+description not like '%INI0%' and
+description not like '%EMT%' and
+description not like '%APD%' and
+description not like '%APPM%'
+order by 1

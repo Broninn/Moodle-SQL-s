@@ -1,0 +1,53 @@
+-- Apenas alunos que acessaram as salas
+WITH acessos_unicos AS (
+    SELECT DISTINCT
+        ula.userid,
+        CASE 
+            WHEN cc.path ~ '/64/' THEN 'SENAI'
+            WHEN cc.path ~ '/803/' THEN 'SESI'
+            WHEN cc.path ~ '/743/' THEN 'IEL'
+            ELSE 'OUTROS'
+        END as casa
+    FROM mdl_user_lastaccess ula
+    JOIN mdl_course c ON c.id = ula.courseid
+    JOIN mdl_course_categories cc ON cc.id = c.category
+    JOIN mdl_role_assignments ra on ra.userid = ula.userid
+    join mdl_context ct on ct.contextlevel = 50 and ct.id = ra.contextid and ct.instanceid = c.id
+    WHERE (cc.path ~ '/64/' OR cc.path ~ '/803/' OR cc.path ~ '/743/') and c.fullname like '%2025%' and ra.roleid = 5
+        AND ula.timeaccess BETWEEN EXTRACT(EPOCH FROM (NOW() - INTERVAL '1 month'))::bigint
+                             AND EXTRACT(EPOCH FROM NOW())::bigint
+)
+SELECT 
+    casa,
+    COUNT(DISTINCT userid) AS usuarios_unicos
+FROM acessos_unicos
+GROUP BY casa
+ORDER BY casa;
+
+
+##############################################################################################################
+
+-- Inscrição de alunos_distintos_inscritos_por_casa
+WITH inscritos_manuais AS (
+    SELECT DISTINCT
+        ue.userid,
+        CASE
+            WHEN cc.path ~ '/64/' THEN 'SENAI'
+            WHEN cc.path ~ '/803/' THEN 'SESI'
+            WHEN cc.path ~ '/743/' THEN 'IEL'
+            ELSE 'OUTROS'
+        END AS casa
+    FROM mdl_user_enrolments ue
+    JOIN mdl_enrol e ON e.id = ue.enrolid AND e.enrol = 'manual'
+    JOIN mdl_course c ON c.id = e.courseid
+    JOIN mdl_course_categories cc ON cc.id = c.category
+    JOIN mdl_role_assignments ra on ra.userid = ue.userid
+    join mdl_context ct on ct.contextlevel = 50 and ct.id = ra.contextid and ct.instanceid = c.id
+    WHERE (cc.path ~ '/64/' OR cc.path ~ '/803/' OR cc.path ~ '/743/') and c.fullname like '%2025%' and ra.roleid = 5
+)
+SELECT
+    casa,
+    COUNT(DISTINCT userid) AS alunos_distintos_inscritos_por_casa
+FROM inscritos_manuais
+GROUP BY casa
+ORDER BY casa;

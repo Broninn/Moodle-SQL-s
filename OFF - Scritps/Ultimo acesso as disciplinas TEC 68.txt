@@ -1,0 +1,107 @@
+-- Ultimo acesso as disciplinas TEC 68
+SELECT DISTINCT
+    cc2.name as curso,
+    c.fullname as disciplina,
+    concat(u.firstname, ' ', u.lastname) as nome_completo,
+    left(gp.name, length(gp.name) - 5) as turma,
+    RIGHT(gpn.idnumber, 4) as unidade,
+    CASE 
+        WHEN ula.timeaccess IS NULL THEN 'Nunca acessou'
+        --ELSE TO_CHAR(TO_TIMESTAMP(ula.timeaccess), 'YYYY-MM-DD HH24:MI:SS')
+        ELSE TO_CHAR (
+            TO_TIMESTAMP (ula.timeaccess) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00',
+            'DD/MM/YYYY HH24:MI:SS'
+        )
+    END as ultimo_acesso
+FROM mdl_user_enrolments ue
+JOIN mdl_enrol e ON e.id = ue.enrolid AND e.enrol = 'manual'
+JOIN mdl_user u ON u.id = ue.userid
+JOIN mdl_course c ON c.id = e.courseid
+inner join mdl_groupings gpn on gpn.courseid = c.id
+    and gpn.idnumber is not null
+    and gpn.idnumber != ''
+    inner join mdl_groupings_groups gpg on gpg.groupingid = gpn.id
+    inner join mdl_groups gp on gp.id = gpg.groupid
+    and gp.courseid = c.id
+    inner join mdl_groups_members gpm on gpm.groupid = gp.id
+    and gpm.userid = u.id
+JOIN mdl_course_categories cc ON cc.id = c.category AND cc.path LIKE '%/68/%'
+JOIN mdl_course_categories cc2 ON cc2.id = cc.parent AND cc2.name NOT LIKE '%PERIODO%'
+LEFT JOIN mdl_user_lastaccess ula ON ula.userid = u.id AND ula.courseid = c.id
+LEFT JOIN mdl_role_assignments ra ON ra.userid = u.id AND ra.roleid = 5
+LEFT JOIN mdl_context ct ON ct.contextlevel = 50 AND ct.id = ra.contextid AND ct.instanceid = c.id
+WHERE c.fullname like '%2025.3%'
+  --AND c.id = 36881
+  AND ue.status = 0
+ORDER BY curso, disciplina,5,4, nome completo
+
+
+################ ULTIMO ACESSO MODERADORES TEC
+
+with
+  moderadores AS (
+    SELECT DISTINCT
+      u.id,
+      cc2.name as "Curso",
+      c.fullname as "Disciplina",
+      concat (u.firstname, ' ', u.lastname) as "Nome_completo",
+      COALESCE(left (gp.name, length (gp.name) - 5), 'Sem turma') AS "Turma",
+      COALESCE(RIGHT (gpn.idnumber, 4), 'Sem unidade') AS "Unidade",
+      CASE
+        WHEN ula.timeaccess IS NULL THEN 'Nunca acessou a disciplina'
+        --ELSE TO_CHAR(TO_TIMESTAMP(ula.timeaccess), 'YYYY-MM-DD HH24:MI:SS')
+        ELSE TO_CHAR (
+          TO_TIMESTAMP (ula.timeaccess) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00',
+          'DD/MM/YYYY HH24:MI:SS'
+        )
+      END as "Ultimo acesso a sala",
+      concat (
+        'https://ava.fiep.digital/course/view.php?id=',
+        c.id
+      ) as "link_curso"
+    FROM
+      mdl_user_enrolments ue
+      JOIN mdl_enrol e ON e.id = ue.enrolid
+      AND e.enrol = 'manual'
+      JOIN mdl_user u ON u.id = ue.userid
+      JOIN mdl_course c ON c.id = e.courseid
+      inner join mdl_groupings gpn on gpn.courseid = c.id
+      and gpn.idnumber is not null
+      and gpn.idnumber != ''
+      inner join mdl_groupings_groups gpg on gpg.groupingid = gpn.id
+      inner join mdl_groups gp on gp.id = gpg.groupid
+      and gp.courseid = c.id
+      inner join mdl_groups_members gpm on gpm.groupid = gp.id
+      and gpm.userid = u.id
+      JOIN mdl_course_categories cc ON cc.id = c.category
+      AND cc.path LIKE '%/68/%'
+      JOIN mdl_course_categories cc2 ON cc2.id = cc.parent
+      AND cc2.name NOT LIKE '%PERIODO%'
+      LEFT JOIN mdl_user_lastaccess ula ON ula.userid = u.id
+      AND ula.courseid = c.id
+      INNER JOIN mdl_role_assignments ra ON ra.userid = u.id
+      AND ra.roleid = 4
+      INNER JOIN mdl_context ct ON ct.contextlevel = 50
+      AND ct.id = ra.contextid
+      AND ct.instanceid = c.id
+    WHERE
+      c.fullname like '%2025%'
+      --AND c.id = 36881
+      AND ue.status = 0
+    ORDER BY
+      "Curso",
+      "Disciplina",
+      "Unidade",
+      "Turma",
+      "Nome_completo"
+  )
+SELECT 
+  m."Curso", m."Disciplina", m."Nome_completo", m."Turma", m."Unidade",
+  m."Ultimo acesso a sala",
+  CASE WHEN u.lastaccess = 0 THEN 'Nunca acessou a plataforma'
+       ELSE TO_CHAR(TO_TIMESTAMP(u.lastaccess) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00', 'DD/MM/YYYY HH24:MI:SS')
+  END AS "Acesso plataforma",
+  m.link_curso
+FROM moderadores m
+JOIN mdl_user u ON u.id = m.id
+ORDER BY m."Curso", m."Disciplina", m."Nome_completo", m."Turma", m."Unidade";

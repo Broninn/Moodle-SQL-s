@@ -1,0 +1,999 @@
+/* BASEADO NA ATUALIZADO DE 03/08/2021 */
+
+/* Atualizado dia 09-04-21 para resolver bug de migração */
+.format-tiles:not(.editing) .subtile_inner{
+    padding: 0 !important; 
+}
+
+/* CUSTOMIZAÇÃO DO NOVO FORMATO DE CURSO */
+.format-tiles:not(.editing) div#format-tiles-multi-section-page,
+ul#sec-zero-cm-list{
+    max-width: 1100px !important;
+    width: 100%;
+}
+
+.format-tiles:not(.editing) .course-content ul.tiles .tile:not(.spacer){
+    border-radius: 20px;
+    height: 210px;
+    flex-basis: 100%;
+    max-width: 240px;
+    box-shadow: 0 7px 10px 0px rgba(0,0,0,.1);
+    border-top: 0;
+    margin: 15px;
+    max-height: none;
+    padding: 0 !important;
+    transition: transform .25s ease-in-out;
+}
+.format-tiles:not(.editing) .course-content ul.tiles .tile:not(.phototile):not(.spacer){
+    background: rgb(91,213,238);
+    background: -moz-linear-gradient(top,  rgba(91,213,238,1) 8%, rgba(18,174,206,1) 100%);
+    background: -webkit-linear-gradient(top,  rgba(91,213,238,1) 8%,rgba(18,174,206,1) 100%);
+    background: linear-gradient(to bottom,  rgba(91,213,238,1) 8%,rgba(18,174,206,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5bd5ee', endColorstr='#12aece',GradientType=0 );
+}
+.format-tiles:not(.editing) .course-content ul.tiles .tile:not(.phototile)>a{
+    margin: 0;
+    padding: 0;
+}
+.format-tiles:not(.editing) .tile a:focus{
+    border: 0;
+    background-color: transparent;
+    box-shadow: 0 0 black;
+}
+.format-tiles:not(.editing) .course-content ul.tiles .tile:not(.phototile) .tile-text{
+    position: absolute;
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+    width: 100%; 
+    height: 100%;
+}
+
+.format-tiles:not(.editing) .course-content ul.tiles .tile.phototile.tilestyle-2 .photo-tile-text,
+.format-tiles:not(.editing) .course-content ul.tiles .tile:not(.phototile) .tile-text .tile-textinner{
+    min-height: 77px;
+    background-color: #fff;
+    border-radius: 19px;
+    display: inline-table;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: initial;
+    top: auto;
+    height: auto;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+    bottom: 0;
+}
+
+.format-tiles:not(.editing) .course-content ul.tiles .tile.phototile.tilestyle-2 .photo-tile-text h3,
+.format-tiles:not(.editing) .course-content ul.tiles .tile:not(.phototile).tilestyle-2 .tile-text h3{
+    background: transparent !important;
+    color: #555;
+    line-height: 1.2em !important;
+    padding: 0 !important;
+    font-size: 1.2em !important;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+.format-tiles:not(.editing) .course-content ul.tiles .tile:not(.phototile) .tile-top .tile-icon{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    border-radius: 51px;
+    border: 4px solid #fff;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.format-tiles:not(.editing) .course-content ul.tiles .tile:not(.phototile) .tile-top .tile-icon i,
+.format-tiles:not(.editing) .course-content ul.tiles .tile:not(.phototile) .tile-top .tile-icon img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    color: #fff !important;
+}
+.format-tiles:not(.editing) .tile .progress-complete-alt{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Camada_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 1792 1792' style='enable-background:new 0 0 1792 1792;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%23FFFFFF;%7D .st1%7Bfill:%2343A398;%7D%0A%3C/style%3E%3Cg%3E%3Cg%3E%3Ccircle class='st0' cx='896' cy='896' r='723'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st1' d='M896,1735.6C433,1735.6,56.4,1359,56.4,896S433,56.4,896,56.4S1735.6,433,1735.6,896S1359,1735.6,896,1735.6z M896,289.6c-334.4,0-606.4,272-606.4,606.4s272,606.4,606.4,606.4s606.4-272,606.4-606.4S1230.4,289.6,896,289.6z'/%3E%3C/g%3E%3Cg id='progresscheck-svgtileprogress-1'%3E%3Cpath class='st1' d='M1269.2,681c9.3,8.9,14,21,14,34.1c0,12.6-4.7,25.2-14,34.1l-362,362l-68.1,68.1c-8.9,9.3-21,14-34.1,14 c-12.6,0-25.2-4.7-34.1-14l-68.1-68.1l-180-181c-9.3-8.9-14-21-14-34.1c0-12.6,4.7-25.2,14-34.1l68.1-68.1c8.9-9.3,21-14,34.1-14 c12.6,0,25.2,4.7,34.1,14L806,941.3l327.9-328.4c8.9-9.3,21-14,34.1-14c12.6,0,25.2,4.7,34.1,14L1269.2,681z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+}
+.format-tiles:not(.editing) .tile .progress-complete-alt img{
+    display: none;
+}
+.format-tiles:not(.editing) .tiles .tile.selected::after{
+    content: "";
+    width: 1px;
+    height: 1px;
+    border-left: 10px solid #11B2CE;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #11B2CE;
+    border-bottom: 10px solid transparent;
+    position: absolute;
+    margin-top: 26px;
+    top: 100%;
+    left: 50%;
+    -webkit-transform: rotate(45deg) translateX(-50%);
+    -ms-transform: rotate(45deg) translateX(-50%);
+    -o-transform: rotate(45deg) translateX(-50%);
+    transform: rotate(45deg) translateX(-50%);
+    background-color: transparent; transition-property: margin-top;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+    -moz-transition: margin-top .25s ease-in-out;
+}
+.format-tiles:not(.editing) .tiles .tile.selected:hover::after{
+    transition-duration: 0.25s;
+    margin-top: 31px;
+}
+.format-tiles:not(.editing) #page .course-content ul li.section.main {
+    position: relative;
+    background: #fff;
+    border-radius: 10px;
+    padding: 0;
+    overflow: hidden;
+    max-width: 1100px !important;
+}
+.format-tiles:not(.editing) ul.tiles{
+    transition: none !important;
+}
+.format-tiles:not(.editing) ul.tiles li.section .content{
+    margin: 0;
+}
+.format-tiles:not(.editing) .pagesechead {
+    padding: 20px 40px;
+    padding-right: 100px;
+    width: 100%;
+    max-width: 100%;
+    background-color: #11b2ce;
+    min-height: 60px;
+    z-index: 1;
+    display: inline-block;
+}
+.format-tiles:not(.editing) .section .tileiconcontainer {
+    display: none;
+}
+.format-tiles:not(.editing) #sectionbuttons {
+    position: absolute;
+    right: 42px;
+    top: 0;
+    margin-top: 25px;
+    z-index: 2;
+}
+.format-tiles:not(.editing) .sectionbutton {
+    background-color: #0f47ad;
+    margin-left: 10px;
+    opacity: 1;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+.format-tiles:not(.editing) .sectiontitle, .format-tiles:not(.editing) .sectiontitlecontainer{
+    padding: 0;
+    margin: 0;
+}
+.format-tiles:not(.editing) .sectiontitle h2 {
+    font-weight: 600;
+    color: #fff;
+    display: inline-block;
+    margin-bottom: 0;
+}
+.format-tiles:not(.editing) .sectionbutton .icon {
+    font-size: 1.6rem;
+}
+.format-tiles:not(.editing) .course-content .icon, .format-tiles:not(.editing) .iconpickericons .icon, .format-tiles:not(.editing) .iconpickericons .icon {
+    color: #fff !important;
+    opacity: 1;
+    -webkit-transition: opacity .3s;
+    -o-transition: opacity .3s;
+    transition: opacity .3s;
+}
+.format-tiles:not(.editing) li.section .completionhelp{
+    margin: 5px;
+}
+.format-tiles:not(.editing) .progresshelp .icon{
+    color: #11b2ce !important;
+}
+.format-tiles:not(.editing) .course-content li.section ul{
+    padding: 0;
+}
+.format-tiles:not(.editing) .course-content ul.section.nosubtiles li.activity {
+    position: relative;
+    padding: 20px 40px 20px 40px;
+    width: 100%;
+    min-height: 90px;
+    border-bottom: 1px solid rgba(0,0,0,.15);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.format-tiles:not(.editing) .section .activity .availabilityinfo{
+    margin-left: 0;
+    margin-top: 0;
+}
+.format-tiles:not(.editing) .activity.subtile   .availabilityinfo{
+    margin-left: 7.5px;
+    margin-top: -5px;
+    position: relative;
+    z-index: 100;
+}
+
+.format-tiles:not(.editing) ul.tiles .tile .availabilityinfo{
+    margin-top: 15px;
+    margin-left: 15px;
+}
+.format-tiles:not(.editing) ul.tiles li.section .content>.availabilityinfo.isfullinfo{
+    margin-left: 0;
+    width: 100%;
+    border: 20px solid #fff;
+    border-radius: 30px;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #ededed;
+}
+.format-tiles:not(.editing) ul.tiles li.section .content>.availabilityinfo.isfullinfo .badge-info{
+    font-size: .73rem;
+    font-weight: 400;
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: #fff;
+}
+.format-tiles:not(.editing) .course-content ul.section.nosubtiles li.activity.label{
+    margin: 0;
+    padding: 20px 40px;
+}
+.format-tiles:not(.editing) .section.main .summary{
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.format-tiles:not(.editing) .section.main .summary p{
+    margin-top: 20px;
+}
+.format-tiles:not(.editing) .section.main .summary h1,
+.format-tiles:not(.editing) .section.main .summary h2,
+.format-tiles:not(.editing) .section.main .summary h3,
+.format-tiles:not(.editing) .section.main .summary h4,
+.format-tiles:not(.editing) .section.main .summary h5,
+.format-tiles:not(.editing) .section.main .summary h6{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.format-tiles:not(.editing) .course-content #section-0 ul.section{
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
+.format-tiles:not(.editing) .course-content #section-0 ul.section.nosubtiles li {
+    border-bottom: none;
+}
+.format-tiles:not(.editing) .course-content #section-0 ul.section.nosubtiles li.activity.label{
+    padding: 20px;
+}
+
+.format-tiles:not(.editing) .activity .contentwithoutlink>a, .format-tiles:not(.editing) .activity .activityinstance>a{
+    text-indent: 0;
+    padding-left: 0;
+}
+.format-tiles:not(.editing) .activity img.activityicon {
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+    position: absolute;
+    opacity: 1 !important;
+}
+.format-tiles:not(.editing) .section li.activity .activitytitle {
+    text-transform: uppercase;
+    font-size: 1em;
+    padding-left: 65px;
+    text-indent: 0;
+    /*margin-top: 12px;*/
+    display: inline-block;
+    color: #048fb0;
+    text-decoration-color: #048fb0;
+}
+.format-tiles:not(.editing) .section li.activity .contentafterlink {
+    margin-left: 0;
+    padding-left: 65px;
+}
+.format-tiles:not(.editing) .section li.activity.subtile .contentafterlink {
+    margin-left: 5px;
+    margin-top: -5px;
+    padding-left: 0;
+}
+.format-tiles:not(.editing) .section li.activity.completion-n .activitytitle {
+    color: #ec3532;
+    text-decoration-color: #ec3532;
+}
+
+.format-tiles:not(.editing) .section li.activity.dimmed .activitytitle {
+    color: #868e96;
+    text-decoration-color: #868e96;
+}
+.format-tiles:not(.editing) .course-content ul.section.nosubtiles .actions {
+    top: 20px;
+    right: 40px;
+    margin-top: 0;
+}
+.format-tiles:not(.editing) .nosubtiles .completioncheckbox{
+    width: 50px;
+    height: 50px;
+    padding-top: 0;
+}
+.format-tiles:not(.editing) .tile .progress-indic {
+    top: -20px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    font-size: 0.001px;
+    color: transparent;
+    background: transparent;
+    position: absolute;
+}
+.format-tiles:not(.editing) .tile:not(.phototile) .progress-indic .icon{
+    display: none;
+}
+
+.format-tiles:not(.editing) .tile .progress-indic .progress-indic-label {
+    display: none;
+}
+.format-tiles:not(.editing) .tile .tiletopright>i {
+    display: none;
+}
+
+.format-tiles:not(.editing) .course-content ul.section.nosubtiles li.activity.completion-y{
+    background-color: rgba(77,182,172,.1);
+}
+
+.format-tiles:not(.editing) .course-content ul.section.nosubtiles li.activity.completion-y .activitytitle{
+    color: #43a398;
+    text-decoration-color: #43a398;
+}
+.format-tiles:not(.editing) .togglecompletion button.btn{
+    width: 50px;
+    height: 50px;
+    margin: 0;
+}
+.format-tiles:not(.editing) .modal-dialog .togglecompletion button.btn{
+    width: 25px;
+    height: 25px;
+    margin-top: -4px;
+}
+.format-tiles:not(.editing) .completion-icon{
+    width: 50px;
+    height: 50px;
+    opacity: 1;
+    margin: 0;
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 40 40' style='enable-background:new 0 0 40 40;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%23FFFFFF;%7D .st1%7Bfill:%23EF5350;%7D%0A%3C/style%3E%3Ccircle class='st0' cx='20' cy='20' r='15.5'/%3E%3Cg%3E%3Cg id='Caminho_14' transform='translate(0 0)'%3E%3Cpath class='st0' d='M20,36c-2.2,0-4.3-0.4-6.3-1.3c-1.9-0.8-3.7-2-5.2-3.4C7,29.8,5.8,28.1,5,26.2c-0.8-2-1.3-4.1-1.3-6.2 s0.4-4.3,1.3-6.2c0.8-1.9,2-3.6,3.5-5.1c1.5-1.5,3.2-2.6,5.2-3.4C15.7,4.4,17.8,4,20,4s4.3,0.4,6.3,1.3c1.9,0.8,3.7,2,5.2,3.4 c1.5,1.5,2.7,3.2,3.5,5.1c0.8,2,1.3,4.1,1.3,6.2s-0.4,4.3-1.3,6.2c-0.8,1.9-2,3.6-3.5,5.1c-1.5,1.5-3.2,2.6-5.2,3.4 C24.3,35.6,22.2,36,20,36z'/%3E%3Cpath class='st1' d='M20,5.8c-3.9,0-7.5,1.5-10.2,4.2C7,12.7,5.5,16.2,5.5,20S7,27.3,9.8,30c2.7,2.7,6.4,4.2,10.2,4.2 s7.5-1.5,10.2-4.2c2.7-2.7,4.2-6.2,4.2-10s-1.5-7.3-4.2-10C27.5,7.3,23.9,5.8,20,5.8 M20,2.2c10,0,18.1,8,18.1,17.8 S30,37.8,20,37.8S1.9,29.9,1.9,20S10,2.2,20,2.2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+}
+.format-tiles:not(.editing) .completion-icon.completion-icon-y{
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 40 40' style='enable-background:new 0 0 40 40;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%23FFFFFF;%7D .st1%7Bfill:%2343A398;%7D%0A%3C/style%3E%3Ccircle class='st0' cx='20' cy='20' r='15.5'/%3E%3Cg%3E%3Cg id='Caminho_14' transform='translate(0 0)'%3E%3Cpath class='st0' d='M20,36c-2.2,0-4.3-0.4-6.3-1.3c-1.9-0.8-3.7-2-5.2-3.4C7,29.8,5.8,28.1,5,26.2c-0.8-2-1.3-4.1-1.3-6.2 s0.4-4.3,1.3-6.2c0.8-1.9,2-3.6,3.5-5.1c1.5-1.5,3.2-2.6,5.2-3.4C15.7,4.4,17.8,4,20,4s4.3,0.4,6.3,1.3c1.9,0.8,3.7,2,5.2,3.4 c1.5,1.5,2.7,3.2,3.5,5.1c0.8,2,1.3,4.1,1.3,6.2s-0.4,4.3-1.3,6.2c-0.8,1.9-2,3.6-3.5,5.1c-1.5,1.5-3.2,2.6-5.2,3.4 C24.3,35.6,22.2,36,20,36z'/%3E%3Cpath class='st1' d='M20,5.8c-3.9,0-7.5,1.5-10.2,4.2C7,12.7,5.5,16.2,5.5,20S7,27.3,9.8,30c2.7,2.7,6.4,4.2,10.2,4.2 s7.5-1.5,10.2-4.2c2.7-2.7,4.2-6.2,4.2-10s-1.5-7.3-4.2-10C27.5,7.3,23.9,5.8,20,5.8 M20,2.2c10,0,18.1,8,18.1,17.8 S30,37.8,20,37.8S1.9,29.9,1.9,20S10,2.2,20,2.2z'/%3E%3C/g%3E%3Cpath id='Caminho_2' class='st1' d='M28.5,15.6c0.2,0.2,0.3,0.5,0.3,0.7c0,0.3-0.1,0.5-0.3,0.7l-7.8,7.8l-1.5,1.5 c-0.2,0.2-0.5,0.3-0.7,0.3c-0.3,0-0.5-0.1-0.7-0.3l-1.5-1.5L12.5,21c-0.2-0.2-0.3-0.5-0.3-0.7c0-0.3,0.1-0.5,0.3-0.7l1.5-1.5 c0.2-0.2,0.5-0.3,0.7-0.3c0.3,0,0.5,0.1,0.7,0.3l3.2,3.2l7-7c0.2-0.2,0.5-0.3,0.7-0.3c0.3,0,0.5,0.1,0.7,0.3L28.5,15.6z'/%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+.format-tiles:not(.editing) .modal-dialog .completion-icon{
+    width: 25px;
+    height: 25px;
+}
+.format-tiles:not(.editing) .section li.activity .activitytitle::after{
+    content: '';
+    width: 50px;
+    height: 50px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.format-tiles:not(.editing) .section li.activity .activitytitle::before{
+    content: '';
+    width: 50px;
+    height: 50px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 26px;
+    background-color: #048fb0;
+}
+.format-tiles:not(.editing) .section li.activity.completion-n .activitytitle::before{
+    background-color: #ec3532;
+}
+.format-tiles:not(.editing) .section li.activity.completion-y .activitytitle::before{
+    background-color: #43a398;
+}
+.format-tiles:not(.editing) .section li.activity.dimmed .activitytitle::before{
+    background-color: #868e96;
+}
+
+.format-tiles:not(.editing) .section li.activity.data .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.data .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_data%3C/title%3E%3Cpath class='cls-1' d='M20,17.94c-3.3,0-6.86-.86-6.86-2.74S16.7,12.45,20,12.45s6.86.86,6.86,2.75S23.3,17.94,20,17.94Zm0-4.12c-3.6,0-5.49,1-5.49,1.38S16.4,16.57,20,16.57s5.49-1,5.49-1.37S23.6,13.82,20,13.82Z'/%3E%3Cpath class='cls-1' d='M20,22.74c-3.3,0-6.86-.85-6.86-2.74a.69.69,0,1,1,1.37,0c0,.32,1.71,1.37,5.49,1.37s5.49-1.05,5.49-1.37a.69.69,0,1,1,1.37,0C26.86,21.89,23.3,22.74,20,22.74Z'/%3E%3Cpath class='cls-1' d='M20,27.55c-3.3,0-6.86-.86-6.86-2.75V15.2a.69.69,0,1,1,1.37,0v9.6c0,.32,1.71,1.38,5.49,1.38s5.49-1.06,5.49-1.38V15.2a.69.69,0,1,1,1.37,0v9.6C26.86,26.69,23.3,27.55,20,27.55Z'/%3E%3C/svg%3E");
+}
+.format-tiles:not(.editing) .section li.activity.chat .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.chat .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_chat%3C/title%3E%3Cpath class='cls-1' d='M20,12.45a7.55,7.55,0,0,0-6.54,11.32l-1,2.95a.62.62,0,0,0,.4.79.55.55,0,0,0,.4,0l2.94-1A7.55,7.55,0,1,0,20,12.45Zm0,13.84a6.24,6.24,0,0,1-3.36-1,.67.67,0,0,0-.34-.1l-.2,0-2,.68.68-2a.61.61,0,0,0-.07-.54A6.29,6.29,0,1,1,20,26.29Z'/%3E%3Ccircle class='cls-1' cx='20' cy='20' r='0.63'/%3E%3Ccircle class='cls-1' cx='17.48' cy='20' r='0.63'/%3E%3Ccircle class='cls-1' cx='22.51' cy='20' r='0.63'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.choice .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.choice .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_choice%3C/title%3E%3Cpath class='cls-1' d='M20,23.14h0a.63.63,0,0,0-.63.63.63.63,0,1,0,1.26,0A.63.63,0,0,0,20,23.14Z'/%3E%3Cpath class='cls-1' d='M20.45,15.64a2.52,2.52,0,0,0-2.93,2,3.42,3.42,0,0,0,0,.45.63.63,0,0,0,.63.63.63.63,0,0,0,.63-.63,1.27,1.27,0,0,1,.45-1,1.26,1.26,0,1,1,1.59,2l-.17.12a2.28,2.28,0,0,0-1.24,2,.61.61,0,0,0,.61.6h0a.65.65,0,0,0,.63-.66,1,1,0,0,1,.58-.89,2.52,2.52,0,0,0-.76-4.68Z'/%3E%3Cpath class='cls-1' d='M24.4,12.45H15.6a3.15,3.15,0,0,0-3.15,3.15v8.8a3.15,3.15,0,0,0,3.15,3.15h8.8a3.15,3.15,0,0,0,3.15-3.15V15.6A3.15,3.15,0,0,0,24.4,12.45Zm1.89,12a1.88,1.88,0,0,1-1.89,1.89H15.6a1.88,1.88,0,0,1-1.89-1.89V15.6a1.88,1.88,0,0,1,1.89-1.89h8.8a1.88,1.88,0,0,1,1.89,1.89Z'/%3E%3C/svg%3E");
+}
+.format-tiles:not(.editing) .section li.activity.lti .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.lti .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_lti%3C/title%3E%3Cpath class='cls-1' d='M25.66,16.23H24.07l.1-.22a2.32,2.32,0,0,0,.23-1,2.51,2.51,0,0,0-2.51-2.52,3.42,3.42,0,0,0-.45,0h0a2.51,2.51,0,0,0-2,2.93,2.43,2.43,0,0,0,.25.73s0,.05,0,.08H18.12a1.89,1.89,0,0,0-1.89,1.89v1.59A1.51,1.51,0,0,0,16,19.6a2.52,2.52,0,1,0,.14,4.51l.08,0v1.59a1.89,1.89,0,0,0,1.89,1.89h7.54a1.89,1.89,0,0,0,1.89-1.89V23.14a.63.63,0,0,0-.62-.63.29.29,0,0,0-.13,0,4.31,4.31,0,0,0-1.2.48,1.35,1.35,0,0,1-.79.12,1.25,1.25,0,0,1-.74-2.05,1.26,1.26,0,0,1,1.48-.34l.23.12a5.22,5.22,0,0,0,1,.41.63.63,0,0,0,.53-.13.64.64,0,0,0,.23-.5V18.12A1.89,1.89,0,0,0,25.66,16.23Zm.63,3.48a1.51,1.51,0,0,0-.22-.11,2.52,2.52,0,1,0,.14,4.51l.08,0v1.59a.63.63,0,0,1-.63.63H18.12a.63.63,0,0,1-.63-.63V23.14a.63.63,0,0,0-.63-.62h-.12a4.31,4.31,0,0,0-1.2.48,1.35,1.35,0,0,1-.79.12,1.28,1.28,0,0,1-1-1,1.26,1.26,0,0,1,1.75-1.38l.24.12a4.89,4.89,0,0,0,1,.41.63.63,0,0,0,.53-.13.64.64,0,0,0,.23-.5V18.12a.63.63,0,0,1,.63-.63h2.51a.65.65,0,0,0,.49-.23.64.64,0,0,0,.14-.52,4.5,4.5,0,0,0-.48-1.21,1.32,1.32,0,0,1-.12-.78,1.29,1.29,0,0,1,1-1A1.25,1.25,0,0,1,23.15,15a1.13,1.13,0,0,1-.12.51l-.11.24a4.62,4.62,0,0,0-.4,1,.61.61,0,0,0,.13.52.64.64,0,0,0,.5.24h2.51a.63.63,0,0,1,.63.63Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.forum .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.forum .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_forum%3C/title%3E%3Cpath class='cls-1' d='M25.06,21.81a2.5,2.5,0,0,0-1.66.64l-2.7-1.62V18a2.49,2.49,0,1,0-1.25,0v2.85l-2.7,1.62a2.6,2.6,0,1,0,.68,1l2.64-1.58,2.64,1.58a2.51,2.51,0,1,0,2.35-1.68Zm-6.23-6.23a1.25,1.25,0,1,1,1.24,1.24A1.25,1.25,0,0,1,18.83,15.58Zm-3.74,10a1.25,1.25,0,1,1,0-2.49,1.25,1.25,0,0,1,0,2.49Zm10,0a1.25,1.25,0,1,1,1.25-1.25A1.25,1.25,0,0,1,25.06,25.55Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.glossary .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.glossary .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_glossary%3C/title%3E%3Cpath class='cls-1' d='M25.28,27.55a.82.82,0,0,1-.44-.14L20,24l-4.84,3.46a.77.77,0,0,1-.79.05.75.75,0,0,1-.41-.67V14.72a2.27,2.27,0,0,1,2.27-2.27h7.54A2.27,2.27,0,0,1,26,14.72V26.79a.75.75,0,0,1-.41.67A.73.73,0,0,1,25.28,27.55ZM20,22.26a.79.79,0,0,1,.44.14l4.09,2.93V14.72a.76.76,0,0,0-.76-.76H16.23a.76.76,0,0,0-.76.76V25.33l4.09-2.93A.79.79,0,0,1,20,22.26Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.workshop .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.workshop .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_workshop%3C/title%3E%3Cpath class='cls-1' d='M25.6,22a5.49,5.49,0,0,0,0-.7,5.64,5.64,0,0,0-3.21-5.08,2.22,2.22,0,0,0,.07-.57,2.51,2.51,0,0,0-5,0,3.7,3.7,0,0,0,.07.57,5.63,5.63,0,0,0-3.2,5.08,5.49,5.49,0,0,0,.05.7,2.51,2.51,0,1,0,1.1,4.89,2.47,2.47,0,0,0,1.4-.87,5.64,5.64,0,0,0,6.18,0A2.51,2.51,0,0,0,27,22.83,2.46,2.46,0,0,0,25.59,22ZM20,14.35a1.26,1.26,0,1,1-1.25,1.25A1.25,1.25,0,0,1,20,14.35ZM15,25.64a1.26,1.26,0,1,1,1.25-1.26A1.25,1.25,0,0,1,15,25.64Zm5,0a4.34,4.34,0,0,1-2.55-.83,2,2,0,0,0,0-.43A2.51,2.51,0,0,0,15.68,22a4.35,4.35,0,0,1,2.47-4.7,2.47,2.47,0,0,0,3.49.22l.22-.22a4.39,4.39,0,0,1,2.53,4,4.49,4.49,0,0,1-.06.73,2.53,2.53,0,0,0-1.82,2.4,2,2,0,0,0,0,.43A4.37,4.37,0,0,1,20,25.64Zm5,0a1.26,1.26,0,1,1,1.26-1.26A1.25,1.25,0,0,1,25,25.64Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.lesson .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.lesson .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_lesson%3C/title%3E%3Cpath class='cls-1' d='M23.77,12.45H22.52a3.15,3.15,0,0,0-3.15,3.15h0A3.14,3.14,0,0,0,17.48,15H13.71a.63.63,0,0,0-.63.63V25a.63.63,0,0,0,.63.63h3.77a1.89,1.89,0,0,1,1.82,1.42.63.63,0,0,0,.61.47h.18a.63.63,0,0,0,.61-.47,1.89,1.89,0,0,1,1.82-1.42h3.77a.63.63,0,0,0,.63-.63V15.6a.63.63,0,0,0-.63-.63H24.4V13.08A.63.63,0,0,0,23.77,12.45ZM20.63,15.6a1.88,1.88,0,0,1,1.89-1.89h.62v8.18h-.62a3.07,3.07,0,0,0-1.89.63Zm-3.15,8.8H14.34V16.23h3.14a1.88,1.88,0,0,1,1.89,1.88V25A3.14,3.14,0,0,0,17.48,24.4Zm8.18-8.17V24.4H22.52a3.14,3.14,0,0,0-1.89.63h0a1.89,1.89,0,0,1,1.89-1.89h1.25a.63.63,0,0,0,.63-.62V16.23Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.feedback .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.feedback .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_feedback%3C/title%3E%3Cpath class='cls-1' d='M20.64,12.49a5.66,5.66,0,0,0-6.28,5,3.66,3.66,0,0,0,0,.66,5.49,5.49,0,0,0,1,3.24,8.61,8.61,0,0,1,1.29,2.48h0a4.92,4.92,0,0,1,.22,1.38v.44a1.89,1.89,0,0,0,1.89,1.89h2.51a1.89,1.89,0,0,0,1.89-1.89v-.47a3.86,3.86,0,0,1,.22-1.35h0a9.27,9.27,0,0,1,1.28-2.48,5.63,5.63,0,0,0-1.41-7.86A6,6,0,0,0,20.64,12.49Zm1.23,13.17a.63.63,0,0,1-.63.63H18.72a.63.63,0,0,1-.62-.63V24.41h3.77Zm1.73-5a11.61,11.61,0,0,0-1.36,2.52H20.61V19.91a2.52,2.52,0,0,0,1.89-2.42.64.64,0,0,0-.63-.63.63.63,0,0,0-.63.63,1.26,1.26,0,1,1-2.52,0,.63.63,0,1,0-1.25,0,2.51,2.51,0,0,0,1.88,2.42v3.24H17.72a12,12,0,0,0-1.35-2.52,4.35,4.35,0,0,1-.79-2.51,4.4,4.4,0,1,1,8,2.51Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.survey .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.survey .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_survey%3C/title%3E%3Cpath class='cls-1' d='M19.37,27.55a6.92,6.92,0,0,0,6.92-6.92h0a.63.63,0,0,0-.63-.63H20V14.34a.63.63,0,0,0-.63-.63,6.92,6.92,0,0,0,0,13.84ZM16.86,24l2.24,2.26a5.7,5.7,0,0,1-3.26-1.23Zm1.88-1.88,3.41,3.4a5.34,5.34,0,0,1-1.43.57l-3-3Zm6,.39-1.28-1.28H25A5.57,5.57,0,0,1,24.69,22.54Zm-3.06-1.28L24,23.59a.91.91,0,0,0,.16.11,5.53,5.53,0,0,1-.94,1.11l-3.55-3.55ZM18.74,15v5.37L15,24.14a5.66,5.66,0,0,1,.92-7.95A5.74,5.74,0,0,1,18.74,15Z'/%3E%3Cpath class='cls-1' d='M21.89,12.45a.63.63,0,0,0-.63.63v5a.63.63,0,0,0,.63.63h5a.63.63,0,0,0,.63-.63A5.67,5.67,0,0,0,21.89,12.45Zm.63,5V13.75a4.41,4.41,0,0,1,3.73,3.73Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.quiz .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.quiz .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_quiz%3C/title%3E%3Cpath class='cls-1' d='M15.65,26.52h6.22a3.1,3.1,0,0,0,3.1-3.1V22.17a.62.62,0,0,0-1.24,0v1.25a1.86,1.86,0,0,1-1.86,1.86H15.65a1.86,1.86,0,0,1-1.86-1.86V17.2a1.86,1.86,0,0,1,1.86-1.86h5a.62.62,0,0,0,.62-.62.61.61,0,0,0-.62-.62h-5a3.1,3.1,0,0,0-3.1,3.1v6.22A3.1,3.1,0,0,0,15.65,26.52Z'/%3E%3Cpath class='cls-1' d='M25.41,13.66a.63.63,0,0,0-.88,0L20,18.19l-1.42-1.43a.63.63,0,0,0-.88,0l-1.86,1.87a.6.6,0,0,0,0,.87l3.72,3.73a.63.63,0,0,0,.88,0l6.83-6.83a.61.61,0,0,0,0-.88ZM20,21.92l-2.85-2.85,1-1,1.42,1.42a.61.61,0,0,0,.88,0L25,15l1,1Z'/%3E%3C/svg%3E");  
+}
+
+.format-tiles:not(.editing) .section li.activity.scorm .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.scorm .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_scorm%3C/title%3E%3Cpath class='cls-1' d='M13.71,17.48V25a1.88,1.88,0,0,0,1.88,1.89h8.82A1.88,1.88,0,0,0,26.29,25V17.48a1.25,1.25,0,0,0,1.26-1.26V14.34a1.25,1.25,0,0,0-1.26-1.26H13.71a1.25,1.25,0,0,0-1.26,1.26v1.88A1.25,1.25,0,0,0,13.71,17.48ZM25,25a.63.63,0,0,1-.62.63H15.59A.63.63,0,0,1,15,25V17.48H25ZM13.71,14.34H26.29v1.88H13.71Z'/%3E%3Cpath class='cls-1' d='M17.48,22.52h5a.63.63,0,0,0,.63-.63V19.37a.63.63,0,0,0-.63-.63h-5a.63.63,0,0,0-.63.63v2.52A.63.63,0,0,0,17.48,22.52ZM18.11,20h3.78v1.26H18.11Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.assign .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.assign .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_assign%3C/title%3E%3Cpath class='cls-1' d='M22.7,12.64l-8.81,8.8h0a.49.49,0,0,0-.11.18l0,.05a.11.11,0,0,1,0,.06l-1.26,5a.63.63,0,0,0,.46.76l.15,0,.15,0,5-1.26.06,0,.05,0a.45.45,0,0,0,.17-.11h0l8.81-8.81a.64.64,0,0,0,.19-.45,4.4,4.4,0,0,0-4.41-4.4A.63.63,0,0,0,22.7,12.64Zm-7.89,9.92a3.17,3.17,0,0,1,2.63,2.62l-3.5.88Zm3.73,1.78A4.43,4.43,0,0,0,17.85,23l.08-.05,7.83-7.84a3.19,3.19,0,0,1,.53,1.48Zm6.33-10.11L17,22.07a.35.35,0,0,0-.05.08,4.61,4.61,0,0,0-1.34-.69l7.75-7.75A3.25,3.25,0,0,1,24.87,14.23Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.wiki .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.wiki .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_wiki%3C/title%3E%3Cpath class='cls-1' d='M24.4,12.45H15.6a3.15,3.15,0,0,0-3.15,3.15v6.28A3.15,3.15,0,0,0,15.6,25h.63v1.18a1.3,1.3,0,0,0,.88,1.25,1.32,1.32,0,0,0,1.49-.4l1.7-2h4.1a3.15,3.15,0,0,0,3.15-3.15V15.6A3.15,3.15,0,0,0,24.4,12.45Zm1.89,9.43a1.89,1.89,0,0,1-1.89,1.89H20a.6.6,0,0,0-.48.23l-1.89,2.26a.07.07,0,0,1-.09,0,.07.07,0,0,1-.06-.07V24.4a.63.63,0,0,0-.63-.63H15.6a1.89,1.89,0,0,1-1.89-1.89V15.6a1.89,1.89,0,0,1,1.89-1.89h8.8a1.89,1.89,0,0,1,1.89,1.89Z'/%3E%3Cpath class='cls-1' d='M22.52,18.11a.63.63,0,0,0,.62-.63.63.63,0,0,0-.62-.63h-.63v-.62a.63.63,0,1,0-1.26,0v.62H19.37v-.62a.63.63,0,0,0-1.26,0v.62h-.63a.63.63,0,0,0-.62.63.63.63,0,0,0,.62.63h.63v1.26h-.63a.63.63,0,0,0,0,1.26h.63v.63a.63.63,0,0,0,1.26,0v-.63h1.26v.63a.63.63,0,0,0,1.26,0v-.63h.63a.63.63,0,0,0,0-1.26h-.63V18.11Zm-1.89,1.26H19.37V18.11h1.26Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.resource .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.resource .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_resource%3C/title%3E%3Cpath class='cls-1' d='M24,27.27H16a2,2,0,0,1-2-2V14.71a2,2,0,0,1,2-2h4.63a.68.68,0,0,1,.47.19l4.63,4.63A.67.67,0,0,1,26,18v7.27A2,2,0,0,1,24,27.27ZM16,14.05a.66.66,0,0,0-.66.66V25.29A.66.66,0,0,0,16,26H24a.66.66,0,0,0,.66-.66v-7l-4.24-4.24Z'/%3E%3Cpath class='cls-1' d='M25.29,18.68H20.66A.67.67,0,0,1,20,18V13.39a.66.66,0,0,1,1.32,0v4h4a.67.67,0,0,1,0,1.33Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.resource.pdf .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.resource.pdf .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_resource_pdf%3C/title%3E%3Cpath class='cls-1' d='M24.12,27.55H15.88a2.07,2.07,0,0,1-2.06-2.06v-11a2.07,2.07,0,0,1,2.06-2.06h5.49a.7.7,0,0,1,.49.2L26,16.77a.69.69,0,0,1,.21.49v8.23A2.07,2.07,0,0,1,24.12,27.55ZM15.88,13.82a.68.68,0,0,0-.68.69v11a.68.68,0,0,0,.68.69h8.24a.68.68,0,0,0,.68-.69V17.54l-3.71-3.72Z'/%3E%3Cpath class='cls-1' d='M25.49,17.94H21.37a.68.68,0,0,1-.68-.68V13.14a.68.68,0,0,1,.68-.69.69.69,0,0,1,.69.69v3.43h3.43a.69.69,0,1,1,0,1.37Z'/%3E%3Cpath class='cls-1' d='M22.74,21.37H17.26a.68.68,0,0,1-.69-.68.69.69,0,0,1,.69-.69h5.48a.69.69,0,0,1,.69.69A.68.68,0,0,1,22.74,21.37Z'/%3E%3Cpath class='cls-1' d='M22.74,24.12H17.26a.69.69,0,1,1,0-1.38h5.48a.69.69,0,1,1,0,1.38Z'/%3E%3Cpath class='cls-1' d='M18.63,18.63H17.26a.69.69,0,0,1-.69-.69.68.68,0,0,1,.69-.68h1.37a.67.67,0,0,1,.68.68A.68.68,0,0,1,18.63,18.63Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.resource.doc .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.resource.doc .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_resource_doc%3C/title%3E%3Cpath class='cls-1' d='M24.12,27.55H15.88a2.07,2.07,0,0,1-2.06-2.06v-11a2.07,2.07,0,0,1,2.06-2.06h5.49a.7.7,0,0,1,.49.2L26,16.77a.69.69,0,0,1,.21.49v8.23A2.07,2.07,0,0,1,24.12,27.55ZM15.88,13.82a.68.68,0,0,0-.68.69v11a.68.68,0,0,0,.68.69h8.24a.68.68,0,0,0,.68-.69V17.54l-3.71-3.72Z'/%3E%3Cpath class='cls-1' d='M25.49,17.94H21.37a.68.68,0,0,1-.68-.68V13.14a.68.68,0,0,1,.68-.69.69.69,0,0,1,.69.69v3.43h3.43a.69.69,0,1,1,0,1.37Z'/%3E%3Cpath class='cls-1' d='M22.74,21.37H17.26a.68.68,0,0,1-.69-.68.69.69,0,0,1,.69-.69h5.48a.69.69,0,0,1,.69.69A.68.68,0,0,1,22.74,21.37Z'/%3E%3Cpath class='cls-1' d='M22.74,24.12H17.26a.69.69,0,1,1,0-1.38h5.48a.69.69,0,1,1,0,1.38Z'/%3E%3Cpath class='cls-1' d='M18.63,18.63H17.26a.69.69,0,0,1-.69-.69.68.68,0,0,1,.69-.68h1.37a.67.67,0,0,1,.68.68A.68.68,0,0,1,18.63,18.63Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.resource.xls .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.resource.xls .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_resource_xls%3C/title%3E%3Cpath class='cls-1' d='M24.51,12.59h-9a2.9,2.9,0,0,0-2.9,2.9v9a2.9,2.9,0,0,0,2.9,2.89h9a2.9,2.9,0,0,0,2.9-2.89v-9A2.9,2.9,0,0,0,24.51,12.59Zm-9,1.5h9a1.4,1.4,0,0,1,1.39,1.4v1.24H14.1V15.49A1.4,1.4,0,0,1,15.49,14.09Zm2.88,7V18.24h3.26v2.82Zm3.26,1.51v3.34H18.37V22.57Zm-4.77-1.51H14.1V18.24h2.76Zm6.28-2.82H25.9v2.82H23.14Zm-9,6.28V22.57h2.76v3.34H15.49A1.39,1.39,0,0,1,14.1,24.52Zm10.41,1.39H23.14V22.57H25.9v1.95A1.39,1.39,0,0,1,24.51,25.91Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.resource.ppt .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.resource.ppt .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_resource_ppt%3C/title%3E%3Cpath class='cls-1' d='M13.08,13.71h.63v6.92a1.89,1.89,0,0,0,1.89,1.89h2.88l-2.7,2.7a.63.63,0,1,0,.82,1l.07-.07,2.7-2.69v3.51a.63.63,0,0,0,1.26,0V23.41l2.7,2.69a.63.63,0,0,0,.89-.88l-2.7-2.7H24.4a1.89,1.89,0,0,0,1.89-1.89V13.71h.63a.63.63,0,0,0,0-1.26H13.08a.63.63,0,0,0,0,1.26Zm12,0v6.92a.63.63,0,0,1-.63.63H15.6a.63.63,0,0,1-.63-.63V13.71Z'/%3E%3Cpath class='cls-1' d='M17.3,19.19l1.44-1.44,1.45,1.44a.63.63,0,0,0,.88,0l2.52-2.52a.64.64,0,0,0-.07-.89.64.64,0,0,0-.82,0l-2.07,2.07-1.44-1.44a.64.64,0,0,0-.89,0L16.41,18.3a.64.64,0,0,0,.07.89A.64.64,0,0,0,17.3,19.19Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.resource.mp4 .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.resource.mp4 .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_resource_mp4%3C/title%3E%3Cpath class='cls-1' d='M14.64,26.55H25.36a1.79,1.79,0,0,0,1.78-1.79V15.24a1.79,1.79,0,0,0-1.78-1.79H14.64a1.79,1.79,0,0,0-1.78,1.79v9.52A1.79,1.79,0,0,0,14.64,26.55Zm-.59-1.79V23.57h1.78v1.79H14.64A.59.59,0,0,1,14.05,24.76ZM24.17,20.6H26v1.78H24.17Zm0-1.2V17.62H26V19.4Zm-1.19,6H17V14.64h6Zm-7.15-6H14.05V17.62h1.78Zm0,1.2v1.78H14.05V20.6Zm9.53,4.76H24.17V23.57H26v1.19A.59.59,0,0,1,25.36,25.36ZM26,15.24v1.19H24.17V14.64h1.19A.59.59,0,0,1,26,15.24Zm-11.31-.6h1.19v1.79H14.05V15.24A.59.59,0,0,1,14.64,14.64Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.resource.mp3 .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.resource.mp3 .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_resource_mp3%3C/title%3E%3Cpath class='cls-1' d='M23.1,15.15a.6.6,0,0,0-.69.51h0a.6.6,0,0,0,.5.69h0a3.69,3.69,0,0,1,0,7.28.6.6,0,0,0-.57.64.62.62,0,0,0,.65.57h.09a4.9,4.9,0,0,0,0-9.7Z'/%3E%3Cpath class='cls-1' d='M22.81,21.25a.6.6,0,0,0,.2,1.17.64.64,0,0,0,.2,0,2.57,2.57,0,0,0,0-4.78.6.6,0,0,0-.4,1.14,1.38,1.38,0,0,1,.69,1.81A1.4,1.4,0,0,1,22.81,21.25Z'/%3E%3Cpath class='cls-1' d='M20.55,13.43a1,1,0,0,0-1.14.22l-2.72,2.73H14.53a1.81,1.81,0,0,0-1.82,1.81v3.63a1.82,1.82,0,0,0,1.82,1.82H16.7l2.73,2.72a1,1,0,0,0,1.47,0,1.05,1.05,0,0,0,.29-.73V14.4A1,1,0,0,0,20.55,13.43ZM20,25.2l-2.6-2.6a.62.62,0,0,0-.43-.18H14.53a.6.6,0,0,1-.61-.6V18.18a.6.6,0,0,1,.61-.6H17a.62.62,0,0,0,.43-.18L20,14.8Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.book .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.book .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_book%3C/title%3E%3Cpath class='cls-1' d='M13.71,15V25a.43.43,0,0,0,0,.11c0,.07,0,.13,0,.21a2.21,2.21,0,0,0,2.2,2.2h9.75a.63.63,0,0,0,.63-.63V13.08a.63.63,0,0,0-.63-.63H16.23A2.52,2.52,0,0,0,13.71,15ZM25,26.29H15.91a.95.95,0,0,1,0-1.89H25Zm0-3.15H15.91a2.17,2.17,0,0,0-.94.23V15a1.25,1.25,0,0,1,1.26-1.26H25Z'/%3E%3Cpath class='cls-1' d='M17.48,19.37h5a.63.63,0,0,0,.62-.63V16.23a.63.63,0,0,0-.62-.63h-5a.63.63,0,0,0-.62.63v2.51A.63.63,0,0,0,17.48,19.37Zm.63-2.51h3.78v1.25H18.11Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.page .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.page .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_page%3C/title%3E%3Cpath class='cls-1' d='M14.65,26.92h10.7a2.19,2.19,0,0,0,2.2-2.2V14.34a1.27,1.27,0,0,0-1.26-1.26H16.86a1.26,1.26,0,0,0-1.26,1.26v3.14H13.71a1.27,1.27,0,0,0-1.26,1.26v6A2.19,2.19,0,0,0,14.65,26.92Zm-.94-2.2v-6H15.6v6a.95.95,0,0,1-1.89,0Zm12.58,0a.93.93,0,0,1-.94.94H16.63a2,2,0,0,0,.23-.94V14.34h9.43Z'/%3E%3Cpath class='cls-1' d='M18.74,19.37H24.4a.63.63,0,0,0,.63-.63V16.23a.63.63,0,0,0-.63-.63H18.74a.63.63,0,0,0-.63.63v2.51A.63.63,0,0,0,18.74,19.37Zm.63-2.51h4.4v1.25h-4.4Z'/%3E%3Cpath class='cls-1' d='M18.74,21.89H24.4a.63.63,0,0,0,.63-.63.63.63,0,0,0-.63-.63H18.74a.63.63,0,0,0-.63.63A.64.64,0,0,0,18.74,21.89Z'/%3E%3Cpath class='cls-1' d='M18.74,24.4h3.78a.63.63,0,0,0,.62-.63.63.63,0,0,0-.62-.63H18.74a.64.64,0,0,0-.63.63A.63.63,0,0,0,18.74,24.4Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.folder .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.folder .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_folder%3C/title%3E%3Cpath class='cls-1' d='M14.34,26.92H25.66A1.88,1.88,0,0,0,27.55,25V16.22a1.88,1.88,0,0,0-1.89-1.88H19.13l-.45-.91-.06-.08a.92.92,0,0,0-.29-.23l-.13,0-.09,0H14.34A1.88,1.88,0,0,0,12.45,15V25A1.88,1.88,0,0,0,14.34,26.92ZM25.66,15.59a.63.63,0,0,1,.63.63v.63h-5.9l-.63-1.26ZM13.71,15a.63.63,0,0,1,.63-.63h3.38l1.72,3.42a.57.57,0,0,0,.11.16l0,0a.58.58,0,0,0,.15.11l.05,0a.57.57,0,0,0,.22,0h6.29V25a.63.63,0,0,1-.63.63H14.34a.63.63,0,0,1-.63-.63Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.label .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.label .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_label%3C/title%3E%3Cpath class='cls-1' d='M25.66,12.45H20.49a1.76,1.76,0,0,0-1.32.57l-6.08,6.05a2.23,2.23,0,0,0,0,3.12h0l4.69,4.72a2.23,2.23,0,0,0,3.12,0h0L27,20.83a1.88,1.88,0,0,0,.57-1.32V14.34A1.89,1.89,0,0,0,25.66,12.45Zm.63,7a.67.67,0,0,1-.19.44L20,26a.91.91,0,0,1-1.32,0L14,21.33A.91.91,0,0,1,14,20l6.08-6.08a.65.65,0,0,1,.44-.19h5.17a.64.64,0,0,1,.63.63Z'/%3E%3Cpath class='cls-1' d='M23.45,15.6a.95.95,0,1,0,.95,1A.93.93,0,0,0,23.45,15.6Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.url .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.url .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_url%3C/title%3E%3Cpath class='cls-1' d='M20,27.55A7.55,7.55,0,1,1,27.55,20,7.56,7.56,0,0,1,20,27.55Zm0-13.73A6.18,6.18,0,1,0,26.18,20,6.18,6.18,0,0,0,20,13.82Z'/%3E%3Cpath class='cls-1' d='M26.86,20.69H13.14a.69.69,0,0,1,0-1.38H26.86a.69.69,0,0,1,0,1.38Z'/%3E%3Cpath class='cls-1' d='M20,27.55a.68.68,0,0,1-.51-.23A11.17,11.17,0,0,1,16.57,20a11.18,11.18,0,0,1,2.92-7.33.71.71,0,0,1,1,0A11.17,11.17,0,0,1,23.43,20a11.18,11.18,0,0,1-2.92,7.33A.68.68,0,0,1,20,27.55ZM20,14.2A9.85,9.85,0,0,0,17.94,20,9.84,9.84,0,0,0,20,25.8,9.85,9.85,0,0,0,22.06,20,9.84,9.84,0,0,0,20,14.2Z'/%3E%3C/svg%3E");
+}
+
+.format-tiles:not(.editing) .section li.activity.resource.html .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.resource.html .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_html%3C/title%3E%3Cpath class='cls-1' d='M25,12.45H15A2.52,2.52,0,0,0,12.45,15V25A2.52,2.52,0,0,0,15,27.55H25A2.52,2.52,0,0,0,27.55,25V15A2.52,2.52,0,0,0,25,12.45ZM13.71,15A1.25,1.25,0,0,1,15,13.71H25A1.25,1.25,0,0,1,26.29,15v2.51H13.71ZM25,26.29H15A1.25,1.25,0,0,1,13.71,25V18.74H26.29V25A1.25,1.25,0,0,1,25,26.29Z'/%3E%3Ccircle class='cls-1' cx='15.6' cy='15.6' r='0.63'/%3E%3Ccircle class='cls-1' cx='18.11' cy='15.6' r='0.63'/%3E%3Ccircle class='cls-1' cx='20.63' cy='15.6' r='0.63'/%3E%3Cpath class='cls-1' d='M23.77,20.63H16.23a.63.63,0,0,0,0,1.26h7.54a.63.63,0,1,0,0-1.26Z'/%3E%3Cpath class='cls-1' d='M23.77,23.14H16.23a.63.63,0,0,0-.63.63.63.63,0,0,0,.63.63h7.54a.63.63,0,0,0,.63-.63A.63.63,0,0,0,23.77,23.14Z'/%3E%3C/svg%3E");
+}
+.format-tiles:not(.editing) .section li.activity.customcert .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.customcert .subtile_inner::after,
+.format-tiles:not(.editing) .section li.activity.coursecertificate .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.coursecertificate .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 23.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 40 40' style='enable-background:new 0 0 40 40;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23FFFFFF;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Cg%3E%3Ccircle class='st0' cx='20' cy='17.3' r='4.8'/%3E%3Cpolyline class='st0' points='17.4,21.3 16.6,27.5 20,25.5 23.4,27.5 22.6,21.3 '/%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+/* ADICIONADO 14/07/21 - Icone de subcursos */
+.format-tiles:not(.editing) .section li.activity.subcourse .activitytitle::after,.format-tiles:not(.editing) .section li.activity.subtile.subcourse .subtile_inner::after{
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Cpath class='cls-1' d='M18.56,19.28h-5a.72.72,0,0,1-.72-.72v-5a.72.72,0,0,1,.72-.72h5a.72.72,0,0,1,.72.72v5A.72.72,0,0,1,18.56,19.28Zm-4.32-1.44h3.6v-3.6h-3.6Z'/%3E%3Cpath class='cls-1' d='M26.48,19.28h-5a.72.72,0,0,1-.72-.72v-5a.72.72,0,0,1,.72-.72h5a.72.72,0,0,1,.72.72v5A.72.72,0,0,1,26.48,19.28Zm-4.32-1.44h3.6v-3.6h-3.6Z'/%3E%3Cpath class='cls-1' d='M26.48,27.2h-5a.72.72,0,0,1-.72-.72v-5a.72.72,0,0,1,.72-.72h5a.72.72,0,0,1,.72.72v5A.72.72,0,0,1,26.48,27.2Zm-4.32-1.44h3.6v-3.6h-3.6Z'/%3E%3Cpath class='cls-1' d='M18.56,27.2h-5a.72.72,0,0,1-.72-.72v-5a.72.72,0,0,1,.72-.72h5a.72.72,0,0,1,.72.72v5A.72.72,0,0,1,18.56,27.2Zm-4.32-1.44h3.6v-3.6h-3.6Z'/%3E%3C/svg%3E");
+}
+.format-tiles:not(.editing) .overall-progress svg text{
+    opacity: 0;
+    display: none;
+}
+/*.format-tiles:not(.editing) .overall-progress svg .whole{
+    stroke: #ef5350 !important;
+}*/
+.format-tiles:not(.editing) .overall-progress svg .partial{
+    stroke: #43a398 !important;
+}
+.format-tiles:not(.editing) .overall-progress.allcomplete{
+    border: 1px solid #43a398;
+    color: #43a398;
+    padding: 0 15px 0 10px;
+    border-radius: 20px;
+}
+.format-tiles:not(.editing) .overall-progress.allcomplete .icon{
+    color: #43a398 !important;
+    opacity: 1;
+    top: 5px;
+    position: relative;
+}
+.format-tiles.editing #page .course-content ul li.section.main{
+    overflow: visible;
+}
+.format-tiles .course-content .icon, .format-tiles .iconpickericons .icon, .format-site .iconpickericons .icon {
+    color: #979797 !important;
+    opacity: 1;
+}
+
+.format-tiles:not(.editing) li.activity .tag-info,
+.format-tiles:not(.editing) ul.tiles .tile .tag-info{
+    background-color: rgba(0,0,0,0.5);
+    font-size: 0.73rem;
+    font-weight: normal;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+.format-tiles:not(.editing) .section li.activity .tag-info{
+    background-color: #11b2ce;
+}
+.format-tiles:not(.editing) .section li.activity.subtile .tag-info{
+     background-color: rgba(0,0,0,0.5);
+}
+
+/* BLOCOS LATERAIS */
+.format-tiles #sidepre-blocks .card {-webkit-box-shadow: none;box-shadow: none;}
+.format-tiles [data-region="blocks-column"] {border-left: 1px solid #d7dfe3;}
+.format-tiles [data-region="blocks-column"] aside.block-region {margin-left: -1px;}
+.format-tiles [data-region="blocks-column"] aside.block-region section.card {margin-bottom: -1px !important;}
+.format-tiles section.block .menubar {border: 1px solid #d7dfe3;background-color: #fff;line-height: 1em;padding: 7px;border-radius: 20px;position: absolute;right: .5rem;top: .5rem;}
+#sidepreopen-control {z-index: 999;}
+
+/* BLOCO CALENDÁRIO */
+.format-tiles .block_calendar_month .calendar_filters span[class^="calendar_event_"] {border-radius: 15px;width: 25px;height: 25px;display: block;position: relative;}
+.format-tiles .block_calendar_month .calendar_filters ul li {margin-right: 5px;display: inline-block;}
+.format-tiles .block_calendar_month .calendar_filters ul li a {position: relative;display: block;}
+.format-tiles .block_calendar_month .calendar_filters .icon {display: none;}
+.format-tiles .block_calendar_month .calendar_filters .eventname {display: none;line-height: 1.1em;left: 50%;position: absolute;bottom: 100%;text-align: center;width: 150px;margin-bottom: 10px;border-radius: 3px;background-color: #11b2ce;color: #fff;border: 0;text-decoration: none !important;padding: .25rem .5rem;-webkit-transform: translateX(-50%);-ms-transform: translateX(-50%);-o-transform: translateX(-50%);-moz-transform: translateX(-50%);transform: translateX(-50%);}
+.format-tiles .block_calendar_month .calendar_filters .eventname::after {position: absolute;top: 100%;left: 50%;content: "";border-color: transparent;border-style: solid;border-top-color: #11b2ce;border-width: .4rem .4rem 0;-webkit-transform: translateX(-50%);-ms-transform: translateX(-50%);-o-transform: translateX(-50%);-moz-transform: translateX(-50%);transform: translateX(-50%);}
+.format-tiles .block_calendar_month .calendar_filters ul li a:hover .eventname {display: block;}
+.format-tiles .block_calendar_month .calendar_filters span[class^="calendar_event_"] .icon {position: absolute;top: 50%;left: 50%;margin: 0;display: inline-block;-webkit-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);-moz-transform: translate(-50%,-50%);transform: translate(-50%,-50%);}
+.format-tiles .block_calendar_month .calendar_filters {display: none;}
+/* BLOCO - PESSOAS / CONHEÇA SEU TUTOR */
+.format-tiles .block_people a, .format-tiles .block_people a:focus{outline: 0 !important; box-shadow: none !important; }
+.format-tiles .block_people .card-title {font-size: .01em;font-size: 0;}
+.format-tiles .block_people .card-title::before {content: "Conheça seu tutor";font-size: 1.171875rem;}
+.format-tiles .block_people .teachers>h3 {display: none;}
+.format-tiles .block_people .participants {display: none;}
+.format-tiles .block_people .teachers li {display: inline-block;}
+.format-tiles .block_people .teachers .image {width: 100%;text-align: center;display: inline-block;margin-bottom: 7px;}
+.format-tiles .block_people .teachers .details {text-align: center;width: 100%;display: inline-block;}
+.format-tiles .block_people .content .teachers .userpicture {margin: 25px;width: 50px;border-radius: 26px;-webkit-box-shadow: 0 0 0 0 #d7dfe3,0 0 0 0 #fbfbfb,0 0 0 3px #d7dfe3,0 0 0 10px #fbfbfb,0 0 0 12px #d7dfe3,0 0 0 19px #fbfbfb,0 0 0 20px #d7dfe3,0 0 0 25px #fbfbfb;box-shadow: 0 0 0 0 #d7dfe3,0 0 0 0 #fbfbfb,0 0 0 3px #d7dfe3,0 0 0 10px #fbfbfb,0 0 0 12px #d7dfe3,0 0 0 19px #fbfbfb,0 0 0 20px #d7dfe3,0 0 0 25px #fbfbfb;-webkit-transition: box-shadow 1.5s;-o-transition: box-shadow 1.5s;transition: box-shadow 1.5s;-webkit-transition-timing-function: cubic-bezier(.26,.83,.59,1.92);-o-transition-timing-function: cubic-bezier(.26,.83,.59,1.92);transition-timing-function: cubic-bezier(.26,.83,.59,1.92);}
+.format-tiles .block_people .content .teachers .userpicture:hover {-webkit-box-shadow: 0 0 0 3px #d7dfe3,0 0 0 10px #fbfbfb,0 0 0 12px #d7dfe3,0 0 0 19px #fbfbfb,0 0 0 20px #d7dfe3,0 0 0 26px #fbfbfb,0 0 0 25px #d7dfe3,0 0 0 25px #fbfbfb;box-shadow: 0 0 0 3px #d7dfe3,0 0 0 10px #fbfbfb,0 0 0 12px #d7dfe3,0 0 0 19px #fbfbfb,0 0 0 20px #d7dfe3,0 0 0 26px #fbfbfb,0 0 0 25px #d7dfe3,0 0 0 25px #fbfbfb;}
+.format-tiles .block_people .content .teachers .icons>a {display: inline-block;margin-top: 10px;padding: 10px 15px;text-decoration: none !important;background-color: #048fb0;color: #fff;border-radius: 7px;}
+.format-tiles .block_people .content .teachers .icons>a::after {content: "Precisa de ajuda?";margin-left: 5px;}
+.format-tiles .block_people .content .teachers>ul {margin-bottom: 0;}
+.format-tiles .block_people .teachers .details .icons{display: none;}
+
+/* BLOCO - MURAL DE AVISOS */
+.format-tiles #sidepre-blocks .card-title {color: #848484;font-weight: bold;text-align: center;width: 100%;margin-top: 5px;margin-bottom: 10px;display: inline-block !important;text-transform: uppercase;}
+.format-tiles #sidepre-blocks .card-text {margin-top: 0 !important;}
+.format-tiles .block_news_items .card-title {font-size: .01em;font-size: 0;}
+.format-tiles .block_news_items .card-title::before {content: "Mural de avisos";font-size: 1.171875rem;}
+.format-tiles .block_news_items .post {width: 100%;position: relative;margin-bottom: 30px;display: -webkit-box;display: -moz-box;display: box;-webkit-box-orient: vertical;-moz-box-orient: vertical;box-orient: vertical;}
+.format-tiles .block_news_items .post::after {position: absolute;bottom: -15px;content: "";border-bottom: 1px solid #d7dfe3;width: 70%;left: 50%;-webkit-transform: translateX(-50%);-ms-transform: translateX(-50%);-o-transform: translateX(-50%);-moz-transform: translateX(-50%);transform: translateX(-50%);}
+.format-tiles .block_news_items .post .head {color: #848484;-webkit-box-ordinal-group: 2;-moz-box-ordinal-group: 2;box-ordinal-group: 2;display: flex;}
+.format-tiles .block_news_items .post .head .name {order: 1;flex: 1;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;padding-right: 10px;}
+.format-tiles .block_news_items .post .head .date {order: 2;text-align: right;}
+.format-tiles .block_news_items .post .info {-webkit-box-ordinal-group: 1;-moz-box-ordinal-group: 1;box-ordinal-group: 1;}
+.format-tiles .block_news_items .post .info a {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    display: inline-block;}
+.format-tiles .block_news_items .newlink {position: absolute;color: transparent;bottom: 1rem;right: 1rem;width: 40px;height: 40px;}
+.format-tiles .block_news_items .newlink::before {content: "Novo aviso";pointer-events: none;opacity: 0;line-height: 1.1em;left: 10%;position: absolute;bottom: 100%;text-align: center;width: 90px;margin-bottom: 8px;border-radius: 3px;background-color: #11b2ce;color: #fff;border: 0;text-decoration: none !important;padding: .25rem .5rem;-webkit-transition: opacity .3s;-o-transition: opacity .3s;transition: opacity .3s;-webkit-transform: translateX(-50%);-ms-transform: translateX(-50%);-o-transform: translateX(-50%);-moz-transform: translateX(-50%);transform: translateX(-50%);}
+.format-tiles .block_news_items .newlink::after {content: "";pointer-events: none;position: absolute;bottom: 100%;margin-bottom: 3px;left: 50%;opacity: 0;border-color: transparent;border-style: solid;border-top-color: #11b2ce;border-width: .4rem .4rem 0;-webkit-transform: translateX(-50%);-ms-transform: translateX(-50%);-o-transform: translateX(-50%);-moz-transform: translateX(-50%);transform: translateX(-50%);-webkit-transition: opacity .3s;-o-transition: opacity .3s;transition: opacity .3s;}
+.format-tiles .block_news_items .newlink:hover::before, .format-tiles .block_news_items .newlink:hover::after {opacity: 1;}
+.format-tiles .block_news_items .card-text {margin-top: 10px !important;}
+.format-tiles .block_news_items .newlink a {font-size: .01em;padding: 0;color: transparent;width: 40px;height: 40px;border-radius: 20px;display: block;background-color: #ef5350;background-position: 55% 50%;-webkit-background-size: 100%;background-size: 100%;background-repeat: no-repeat;
+background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_assign%3C/title%3E%3Cpath class='cls-1' d='M22.7,12.64l-8.81,8.8h0a.49.49,0,0,0-.11.18l0,.05a.11.11,0,0,1,0,.06l-1.26,5a.63.63,0,0,0,.46.76l.15,0,.15,0,5-1.26.06,0,.05,0a.45.45,0,0,0,.17-.11h0l8.81-8.81a.64.64,0,0,0,.19-.45,4.4,4.4,0,0,0-4.41-4.4A.63.63,0,0,0,22.7,12.64Zm-7.89,9.92a3.17,3.17,0,0,1,2.63,2.62l-3.5.88Zm3.73,1.78A4.43,4.43,0,0,0,17.85,23l.08-.05,7.83-7.84a3.19,3.19,0,0,1,.53,1.48Zm6.33-10.11L17,22.07a.35.35,0,0,0-.05.08,4.61,4.61,0,0,0-1.34-.69l7.75-7.75A3.25,3.25,0,0,1,24.87,14.23Z'/%3E%3C/svg%3E");
+}
+.format-tiles .block_news_items .footer {color: transparent;font-size: .01em;font-size: 0;margin-bottom: 0px;margin-top: 20px;display: inline-block;width: 100%;padding-right: 0px;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;text-align: center;}
+.format-tiles .block_news_items .footer a {width: auto;font-size: .001em;font-size: 0;height: 40px;display: inline-block;background-color: #048fb0;padding: 10px 15px;border-radius: 7px;text-decoration: none !important;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+.format-tiles .block_news_items .footer a::before {content: "Ver avisos anteriores";color: #fff;font-size: .9rem;}
+
+.format-tiles:not(.editing) .sectiontitle::after, .format-tiles:not(.editing) .tag-info{
+    background-color: transparent;
+}
+.format-tiles:not(.editing) .course-content ul.tiles .tile.spacer, .format-tiles.pagelayout-course:not(.editing) .course-content li.section ul li.activity.spacer{
+    border: 0;
+}
+.format-tiles:not(.editing) section#region-main{
+    overflow-x: hidden;
+}
+
+/* ESTILO TOOLTIPS */
+body.format-tiles:not(.editing) .tooltip {pointer-events: none;}
+body.format-tiles:not(.editing) .tooltip .badge {background: rgba(255,255,255,.15);color: #fff;border-radius: 3px;font-weight: normal;font-weight: normal;font-size: 9pt;}
+body.format-tiles:not(.editing) .tooltip ul {text-align: left;}
+body.format-tiles:not(.editing) .tooltip a {color: rgba(255,255,255,.9);text-decoration: underline;}
+body.format-tiles:not(.editing) .bs-tooltip-bottom {margin-top: -10px;}
+body.format-tiles:not(.editing) .bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^="top"] .arrow::before {border-top-color: #11b2ce !important;}
+body.format-tiles:not(.editing) .bs-tooltip-left .arrow::before, .bs-tooltip-auto[x-placement^="left"] .arrow::before {border-left-color: #11b2ce !important;}
+body.format-tiles:not(.editing) .bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^="right"] .arrow::before {border-right-color: #11b2ce !important;}
+body.format-tiles:not(.editing) .bs-tooltip-bottom .arrow::before, .bs-tooltip-auto[x-placement^="bottom"] .arrow::before {border-bottom-color: #11b2ce !important;}
+body.format-tiles:not(.editing)  .tooltip-inner {border-radius: 3px;background-color: #11b2ce !important;color: #fff !important;border: 0 !important;opacity: 1 !important;}
+body.format-tiles:not(.editing) .tooltip.show {opacity: 1 !important;}
+body.format-tiles:not(.editing) .tooltip-green.bs-tooltip-top .arrow::before, body.format-tiles:not(.editing) .tooltip-green.bs-tooltip-auto[x-placement^="top"] .arrow::before {border-top-color: #43a398 !important;}
+body.format-tiles:not(.editing) .tooltip-green.bs-tooltip-left .arrow::before, body.format-tiles:not(.editing) .tooltip-green.bs-tooltip-auto[x-placement^="left"] .arrow::before {border-left-color: #43a398 !important;}
+body.format-tiles:not(.editing) .tooltip-green.bs-tooltip-right .arrow::before, body.format-tiles:not(.editing) .tooltip-green.bs-tooltip-auto[x-placement^="right"] .arrow::before {border-right-color: #43a398 !important;}
+body.format-tiles:not(.editing) .tooltip-green.bs-tooltip-bottom .arrow::before, body.format-tiles:not(.editing) .tooltip-green.bs-tooltip-auto[x-placement^="bottom"] .arrow::before {border-bottom-color: #43a398 !important;}
+body.format-tiles:not(.editing) .tooltip-green .tooltip-inner {background-color: #43a398 !important;}
+body.format-tiles:not(.editing) .tooltip-red.bs-tooltip-top .arrow::before, body.format-tiles:not(.editing) .tooltip-red.bs-tooltip-auto[x-placement^="top"] .arrow::before {border-top-color: #f04a47 !important;}
+body.format-tiles:not(.editing) .tooltip-red.bs-tooltip-left .arrow::before, body.format-tiles:not(.editing) .tooltip-red.bs-tooltip-auto[x-placement^="left"] .arrow::before {border-left-color: #f04a47 !important;}
+body.format-tiles:not(.editing) .tooltip-red.bs-tooltip-right .arrow::before, body.format-tiles:not(.editing) .tooltip-red.bs-tooltip-auto[x-placement^="right"] .arrow::before {border-right-color: #f04a47 !important;}
+body.format-tiles:not(.editing) .tooltip-red.bs-tooltip-bottom .arrow::before, body.format-tiles:not(.editing) .tooltip-red.bs-tooltip-auto[x-placement^="bottom"] .arrow::before {border-bottom-color: #f04a47 !important;}
+body.format-tiles:not(.editing) .tooltip-red .tooltip-inner {background-color: #f04a47 !important;}
+body.format-tiles:not(.editing) .tooltip-orange.bs-tooltip-top .arrow::before, body.format-tiles:not(.editing).tooltip-orange.bs-tooltip-auto[x-placement^="top"] .arrow::before {border-top-color: #ef5350 !important;}
+body.format-tiles:not(.editing) .tooltip-orange.bs-tooltip-left .arrow::before, body.format-tiles:not(.editing).tooltip-orange.bs-tooltip-auto[x-placement^="left"] .arrow::before {border-left-color: #ef5350 !important;}
+body.format-tiles:not(.editing) .tooltip-orange.bs-tooltip-right .arrow::before, body.format-tiles:not(.editing).tooltip-orange.bs-tooltip-auto[x-placement^="right"] .arrow::before {border-right-color: #ef5350 !important;}
+body.format-tiles:not(.editing) .tooltip-orange.bs-tooltip-bottom .arrow::before, body.format-tiles:not(.editing).tooltip-orange.bs-tooltip-auto[x-placement^="bottom"] .arrow::before {border-bottom-color: #ef5350 !important;}
+body.format-tiles:not(.editing) .tooltip-orange .tooltip-inner {background-color: #ef5350 !important;}
+
+/* FORMATO PÓS FLEXIVEL - UNIQUE */
+.format-tiles:not(.editing) li.activity.subtile{
+    border-radius: 20px;
+    border-top-color: transparent;
+    border-top: 0 !important;
+    border: 0;
+    padding: 0;
+    height: 210px;
+    flex-basis: 100%;
+    max-width: 240px;
+    margin: 15px; 
+    background: #048fb0 !important;
+    background: -moz-linear-gradient(top,  #048fb0 0%, #025269 100%) !important;
+    background: -webkit-linear-gradient(top,  #048fb0 0%,#025269 100%)  !important;
+    background: linear-gradient(to bottom,  #048fb0 0%,#025269 100%)  !important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#048fb0', endColorstr='#025269',GradientType=0 );
+    -webkit-box-shadow: 0 7px 10px 0 rgba(0,0,0,.1);
+    box-shadow: 0 7px 10px 0 rgba(0,0,0,.1);
+    transition: transform .25s ease-in-out;
+}
+.format-tiles:not(.editing) li.activity.subtile.dimmed{
+    background: rgba(4, 143, 176 , 0.5) !important;
+    background: -moz-linear-gradient(top,  rgba(4, 143, 176 , 0.5) 0%, rgba(2, 82, 105, 0.5) 100%) !important;
+    background: -webkit-linear-gradient(top,  rgba(4, 143, 176 , 0.5) 0%,rgba(2, 82, 105, 0.5) 100%)  !important;
+    background: linear-gradient(to bottom,  rgba(4, 143, 176 , 0.5) 0%,rgba(2, 82, 105, 0.5) 100%)  !important;
+}
+.format-tiles:not(.editing) li.activity.subtile.dimmed .inplaceeditable, .format-tiles:not(.editing) li.activity.subtile.subtile.dimmed .activityinstance{
+    opacity: 1;
+}
+.format-tiles:not(.editing) li.activity.subtile .clickable-region {
+    height: 100%;
+    width: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.format-tiles:not(.editing) li.activity.subtile:hover{
+    transform: translateY(-6px);
+}
+.format-tiles:not(.editing) .subtiles li.activity.label{
+    padding: 20px;
+}
+.format-tiles:not(.editing) .subtiles li.activity.label h1,
+.format-tiles:not(.editing) .subtiles li.activity.label h2,
+.format-tiles:not(.editing) .subtiles li.activity.label h3,
+.format-tiles:not(.editing) .subtiles li.activity.label h4{
+    border-left: 0;
+    padding-left: 0; 
+}
+.format-tiles:not(.editing) li.activity.subtile .subtile_inner::after{
+    content: "";
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    pointer-events: none;
+    top: 15px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    display: block;
+    -webkit-background-size: 90%;
+    background-size: 130%;
+    background-position: 50%;
+    border-radius: 51px;
+    border: 4px solid #fff;
+}
+.format-tiles:not(.editing) li.activity.subtile.dimmed .subtile_inner::after{
+    opacity: 50%;
+}
+.format-tiles:not(.editing) li.activity.subtile .activitytitle{
+    position: absolute;
+    bottom: -1px;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: inline-table;
+    min-height: 77px;
+    height: auto;
+}
+.format-tiles:not(.editing) li.activity.subtile .activitytitle a{
+    background-color: #fff;
+    border-radius: 19px;
+    padding: 20px;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    text-transform: initial;
+    line-height: 1.2em;
+    font-size: 1.2em;
+    display: table-cell;
+    vertical-align: middle;
+    min-height: 77px;
+    height: auto;
+    background-image: none;
+}
+.format-tiles:not(.editing) li.activity.subtile.dimmed .activitytitle a{
+    color: rgba(86,86,86,0.5) !important;
+}
+.format-tiles:not(.editing) li.activity.subtile.unclickable .activitytitle{
+    color: rgba(86,86,86,0.5) !important;
+    background-color: #fff;
+    border-radius: 19px;
+    padding: 20px;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    text-transform: initial;
+    line-height: 1.2em;
+    font-size: 1.2em;
+    display: table-cell;
+    vertical-align: middle;
+    min-height: 77px;
+    height: auto;
+    background-image: none;
+}
+.format-tiles:not(.editing) .section li.activity.subtile .activitytitle::before,
+.format-tiles:not(.editing) .section li.activity.subtile .activitytitle::after{
+    display: none;
+}
+.format-tiles:not(.editing) .subtiles .completioncheckbox{
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    padding: 0;
+}
+.format-tiles:not(.editing) .section li.activity.subtile .togglecompletion button.btn {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+}
+.format-tiles:not(.editing) .section li.activity.subtile .activitytype{
+    display: none;
+}
+.format-tiles:not(.editing) .section li.activity.subtile .completion-icon{
+    width: 40px;
+    height: 40px;
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Camada_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 1792 1792' style='enable-background:new 0 0 1792 1792;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%23FFFFFF;%7D .st1%7Bfill:%23ef5350;%7D%0A%3C/style%3E%3Cg%3E%3Cg%3E%3Ccircle class='st0' cx='896' cy='896' r='723'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st1' d='M896,1735.6C433,1735.6,56.4,1359,56.4,896S433,56.4,896,56.4S1735.6,433,1735.6,896S1359,1735.6,896,1735.6z M896,289.6c-334.4,0-606.4,272-606.4,606.4s272,606.4,606.4,606.4s606.4-272,606.4-606.4S1230.4,289.6,896,289.6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+}
+.format-tiles:not(.editing) .section li.activity.subtile .completion-icon.completion-icon-y{
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Camada_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 1792 1792' style='enable-background:new 0 0 1792 1792;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%23FFFFFF;%7D .st1%7Bfill:%2343A398;%7D%0A%3C/style%3E%3Cg%3E%3Cg%3E%3Ccircle class='st0' cx='896' cy='896' r='723'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st1' d='M896,1735.6C433,1735.6,56.4,1359,56.4,896S433,56.4,896,56.4S1735.6,433,1735.6,896S1359,1735.6,896,1735.6z M896,289.6c-334.4,0-606.4,272-606.4,606.4s272,606.4,606.4,606.4s606.4-272,606.4-606.4S1230.4,289.6,896,289.6z'/%3E%3C/g%3E%3Cg id='progresscheck-svgtileprogress-1'%3E%3Cpath class='st1' d='M1269.2,681c9.3,8.9,14,21,14,34.1c0,12.6-4.7,25.2-14,34.1l-362,362l-68.1,68.1c-8.9,9.3-21,14-34.1,14 c-12.6,0-25.2-4.7-34.1-14l-68.1-68.1l-180-181c-9.3-8.9-14-21-14-34.1c0-12.6,4.7-25.2,14-34.1l68.1-68.1c8.9-9.3,21-14,34.1-14 c12.6,0,25.2,4.7,34.1,14L806,941.3l327.9-328.4c8.9-9.3,21-14,34.1-14c12.6,0,25.2,4.7,34.1,14L1269.2,681z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+.format-tiles:not(.editing) .aalink.focus, .format-tiles:not(.editing) #page-footer a:not([class]).focus,.format-tiles:not(.editing) .arrow_link.focus,.format-tiles:not(.editing) a:not([class]).focus,.format-tiles:not(.editing) .activityinstance>a.focus,.format-tiles:not(.editing) .aalink:focus,.format-tiles:not(.editing) #page-footer a:not([class]):focus,.format-tiles:not(.editing) .arrow_link:focus,.format-tiles:not(.editing) a:not([class]):focus,.format-tiles:not(.editing) .activityinstance>a:focus{
+    outline: 0 !important;
+    color: inherit;
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0 0 transparent;
+    box-shadow: 0 0 0 0 transparent;
+}
+
+@media screen and (min-width: 1024px) {
+    body.format-tiles.pagelayout-course #sidepreopen-control {display: none;}
+    body.format-tiles.pagelayout-course {margin-right: 310px;}
+    body.format-tiles.pagelayout-course.drawer-open-left {margin-right: 320px;}
+    body.format-tiles.pagelayout-course.drawer-closed-right {margin-right: 0;}
+    body.format-tiles.pagelayout-course [data-region="blocks-column"] {right: 0;}
+}
+
+@media screen and (max-width: 680px) {
+    .format-tiles:not(.editing) li.activity.subtile {
+        flex-basis: 225px!important;
+        min-height: 210px;
+        margin: 15px !important;
+        max-width: 240px !important
+    }
+    .format-tiles:not(.editing) .subtiles{
+        justify-content: center;
+    }
+}
+@media screen and (max-width: 600px){
+    .format-tiles:not(.editing) .course-content ul.tiles .tile:not(.spacer) {
+        flex-basis: 225px!important;
+        min-height: 210px;
+        margin: 15px !important;
+        max-width: 240px !important;
+        padding: 0;
+    }
+    .format-tiles:not(.editing) .pagesechead{
+        margin: 0;
+    }
+    .format-tiles:not(.editing) .tiles .tile.selected::after{
+        margin-top: 16px;
+    }
+    .format-tiles:not(.editing) .tiles .tile.selected:hover::after {
+        margin-top: 21px;
+    }
+    .format-tiles:not(.editing) .course-content ul.section.nosubtiles li.activity{
+        padding: 12px 6px !important;
+    }
+    .format-tiles:not(.editing) .course-content ul.section.nosubtiles .actions {
+        right: 20px;
+    }
+    .format-tiles:not(.editing) .section li.activity:not(.subtile) .contentafterlink {
+        margin-left: 0;
+        padding-left: 65px !important;
+    }
+    .format-tiles:not(.editing) .course-content ul.tiles .tile.spacer {
+        padding: 0 !important;
+    }
+    .format-tiles:not(.editing) #sectionbuttons{
+        right: 20px;
+    }
+    .format-tiles:not(.editing) #page-wrapper #page{
+        overflow-x: hidden;
+    }
+    .path-course-view li.activity>div{
+        padding: 8px!important
+    }
+    .activity-altcontent.contentwithoutlink.d-flex {
+        display: block !important;
+    }
+    img {
+        width: 100%;
+        height: auto;
+    }
+    .format-tiles:not(.editing) .sectionbutton .icon {
+        margin: 7px 6px !important;
+    }
+    .atto_image_button_middle,
+    .atto_image_button_text-bottom {
+        margin: 0 !important;
+    }
+    .atto_image_button_text-bottom.img-fluid,
+    .atto_image_button_middle.img-fluid {
+        max-width: 100%;
+    }
+    .format-tiles:not(.editing) .section.main .summary{
+         margin-left: 12px;
+        margin-right: 12px;
+    }
+    .format-tiles .sectiontitle {
+        max-width: 100% !important;
+    }
+}
+
+
+/* CLASSES ESPECIAIS PARA COMPATIBILIDADE COM FIEP.DIGITAL */
+.ava-fiep-digital.format-tiles:not(.editing) #page .course-content ul li.section.main{
+    margin-top:  10px !important;
+}
+.ava-fiep-digital.format-tiles [data-region="blocks-column"] aside.block-region section.card {
+    margin-bottom: 1rem!important;
+}
+.ava-fiep-digital.format-tiles .block_news_items .footer a{
+    background-color: #048fb0 !important;
+    height: auto;
+}
+.ava-fiep-digital.format-tiles .block_news_items .newlink a{
+    background-color: #ef5350 !important;
+    background-image: url("data:image/svg+xml,%3Csvg id='svgtileprogress-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:%23fff;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Eicon_assign%3C/title%3E%3Cpath class='cls-1' d='M22.7,12.64l-8.81,8.8h0a.49.49,0,0,0-.11.18l0,.05a.11.11,0,0,1,0,.06l-1.26,5a.63.63,0,0,0,.46.76l.15,0,.15,0,5-1.26.06,0,.05,0a.45.45,0,0,0,.17-.11h0l8.81-8.81a.64.64,0,0,0,.19-.45,4.4,4.4,0,0,0-4.41-4.4A.63.63,0,0,0,22.7,12.64Zm-7.89,9.92a3.17,3.17,0,0,1,2.63,2.62l-3.5.88Zm3.73,1.78A4.43,4.43,0,0,0,17.85,23l.08-.05,7.83-7.84a3.19,3.19,0,0,1,.53,1.48Zm6.33-10.11L17,22.07a.35.35,0,0,0-.05.08,4.61,4.61,0,0,0-1.34-.69l7.75-7.75A3.25,3.25,0,0,1,24.87,14.23Z'/%3E%3C/svg%3E") !important;
+}
+.ava-fiep-digital.format-tiles .block_news_items .newlink {
+    bottom: 1.5rem;
+    right: 1.5rem;
+}
+/*div.activityiconcontainer,
+.completion-spacer.pull-right {
+    display: none;
+}*/
+.activity-info {
+    align-self: center !important;
+}
+.single-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.section .label .contentwithoutlink {
+    padding-right: 0px !important;
+}
+.format_tiles_section_content {
+    margin: 0px !important;
+}
+.sectionbutton  {
+    margin: 4px 0px 4px 0px;
+}
+.activity-basis {
+    margin-bottom: 12px;
+}
+/* 25-06-2024 */
+
+.format-tiles:not(.editing) .course-content {
+    display: flex;
+    justify-content: center;
+}
+.format-tiles:not(.editing) #multi_section_tiles {
+    max-width: 1100px;
+    justify-content: center !important;
+}
+.format-tiles .sectionbutton {
+    border-radius: 0 !important;
+}
+.d-block.d-sm-none {
+    display: block !important;
+}
+div#buttonhidesec0 {
+    display: none !important;
+}
+.row {
+    justify-content: center;
+}

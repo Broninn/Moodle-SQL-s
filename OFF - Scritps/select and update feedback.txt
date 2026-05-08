@@ -1,0 +1,46 @@
+Select para feedback por categoria:
+
+SELECT count(*)
+FROM mdl_grade_grades gg
+JOIN mdl_grade_items gi ON gi.id = gg.itemid
+inner join mdl_course c on c.id = gi.courseid
+inner join mdl_course_categories cc on cc.id = c.category and cc."path" like '%/19029/%'
+WHERE 
+  (gg.feedback LIKE '%tribuir notas zero às atividades não%' OR gg.feedback LIKE '%aluno alcançou a nota de aprovação no item corres%') 
+  AND gi.itemtype LIKE 'category';
+
+
+Update para feedback por categoria:
+
+UPDATE mdl_grade_grades gg
+SET feedback = NULL
+FROM mdl_grade_items gi
+INNER JOIN mdl_course c ON c.id = gi.courseid
+INNER JOIN mdl_course_categories cc ON cc.id = c.category AND cc."path" LIKE '%/19029/%'
+WHERE gg.itemid = gi.id
+  AND (gg.feedback LIKE '%tribuir notas zero às atividades não%' 
+       OR gg.feedback LIKE '%aluno alcançou a nota de aprovação no item corres%')
+  AND gi.itemtype LIKE 'category';
+
+
+########################################################################
+
+
+Select para feedback por curso:
+SELECT count(*)
+FROM mdl_grade_grades gg
+JOIN mdl_grade_items gi ON gi.id = gg.itemid
+WHERE gi.courseid = 26079
+  AND (gg.feedback LIKE '%tribuir notas zero às atividades não%' OR gg.feedback LIKE '%aluno alcançou a nota de aprovação no item corres%') 
+  AND gi.itemtype LIKE 'category';
+
+
+Update para feedback por curso:
+
+UPDATE mdl_grade_grades
+SET feedback = null
+FROM mdl_grade_items
+WHERE mdl_grade_items.id = mdl_grade_grades.itemid
+  AND mdl_grade_items.courseid = 25310
+  AND (mdl_grade_grades.feedback LIKE '%tribuir notas zero às atividades não%' OR mdl_grade_grades.feedback LIKE '%aluno alcançou a nota de aprovação no item corres%') 
+  AND mdl_grade_items.itemtype LIKE 'category';

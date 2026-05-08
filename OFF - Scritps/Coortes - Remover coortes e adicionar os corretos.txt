@@ -1,0 +1,7 @@
+--Consulta para encontrar os instanceid que devem ser removidos pelo WS local_ws_enrolcohort_delete_instance
+select e.id, c.id
+from mdl_course as c 
+inner join mdl_course_categories cc on cc.id = c.category and 
+cc."path" like '%/15950/%' -- Alterar o id da categoria para a categoria correta
+inner join mdl_enrol e on e.courseid = c.id and e.enrol LIKE '%cohort%'
+inner join mdl_course_categories cc2 on cc2.id = cc.parent and cc2.name not like '%PERIODO%'

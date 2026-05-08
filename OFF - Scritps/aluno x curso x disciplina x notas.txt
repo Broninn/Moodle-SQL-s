@@ -1,0 +1,107 @@
+-- Alunos
+WITH base_data AS (
+    SELECT 
+        c.id AS id_disciplina,
+        ue.userid,
+        CASE WHEN ue.timestart = 0 OR ue.timestart IS NULL THEN NULL
+             ELSE TO_TIMESTAMP(ue.timestart) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00'
+        END AS inicio,
+        CASE WHEN ue.timeend = 0 OR ue.timeend IS NULL THEN NULL
+             ELSE TO_TIMESTAMP(ue.timeend) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00'
+        END AS termino,
+        CONCAT(u.firstname, ' ', u.lastname) AS nome_completo,
+        MAX(gpn.name) AS Unidade,       
+        MAX(LEFT(gp.name, LENGTH(gp.name) - 5)) AS Turma,
+        MAX(mcc4.name) AS periodoletivo,
+        MAX(mcc3.name) AS mediacao,
+        MAX(mcc2.name) AS Curso,
+        MAX(c.fullname) AS Disciplina,
+        ula.timeaccess,
+        CONCAT('https://ava.fiep.digital/user/index.php?id=', c.id) AS link_curso
+    FROM mdl_course c
+    INNER JOIN mdl_enrol e ON e.courseid = c.id AND e.enrol = 'manual'
+    INNER JOIN mdl_user_enrolments ue ON ue.enrolid = e.id
+    INNER JOIN mdl_user u ON u.id = ue.userid
+    INNER JOIN mdl_course_categories cc ON cc.id = c.category
+    INNER JOIN mdl_course_categories mcc ON mcc.id = c.category
+    INNER JOIN mdl_course_categories mcc2 ON mcc2.id = mcc.parent
+    INNER JOIN mdl_course_categories mcc3 ON mcc3.id = mcc2.parent
+    INNER JOIN mdl_course_categories mcc4 ON mcc4.id = mcc3.parent
+    INNER JOIN mdl_groups_members gpm ON gpm.userid = u.id
+    INNER JOIN mdl_groups gp ON gp.id = gpm.groupid AND gp.courseid = c.id
+    INNER JOIN mdl_groupings_groups gpg ON gpg.groupid = gp.id
+    INNER JOIN mdl_groupings gpn ON gpn.id = gpg.groupingid AND gpn.courseid = c.id AND gpn.idnumber IS NOT NULL AND gpn.idnumber != ''
+    INNER JOIN mdl_role_assignments ra ON ra.userid = u.id AND ra.roleid = 5
+    LEFT JOIN mdl_user_lastaccess ula ON ula.userid = u.id AND ula.courseid = c.id
+    INNER JOIN mdl_context ct ON ct.contextlevel = 50
+        AND ct.id = ra.contextid
+        AND ct.instanceid = c.id
+    WHERE cc."path" ~ '/68/' and cc.name like '%PERIODO%' and c.fullname like '%| 2026%' and mcc4.name != '2026' -- and c.id = 34660
+    GROUP BY c.id, ue.userid, ula.timeaccess, ue.timestart, ue.timeend, u.username, u.firstname, u.lastname
+),
+grades_pivot AS (
+    SELECT 
+        gi.courseid, gg.userid,
+        MAX(CASE WHEN gi.itemtype = 'course' THEN gg.finalgrade ELSE null END) AS finalgrade_curso
+    FROM mdl_grade_items gi
+    INNER JOIN mdl_grade_grades gg ON gg.itemid = gi.id
+    WHERE gi.courseid IN (SELECT id FROM mdl_course WHERE category IN (SELECT id FROM mdl_course_categories WHERE "path" ~ '/68/' and name like '%PERIODO%') and fullname like '%| 2026%')
+      AND (gi.idnumber ~ 'RF3R1' OR gi.itemtype = 'course')
+    GROUP BY gi.courseid, gg.userid
+),
+dedicacao_alunos AS (
+  SELECT 
+    bd.userid, 
+    bd.courseid, 
+    SUM(bd.timespent) AS total_segundos
+  FROM mdl_block_dedication bd
+  LEFT JOIN base_data b ON bd.userid = b.userid AND bd.courseid = b.id_disciplina
+  WHERE bd.courseid IN (SELECT id_disciplina FROM base_data)
+  GROUP BY bd.userid, bd.courseid
+)
+SELECT 
+    b.periodoletivo,
+    b.mediacao,
+    b.Curso,
+    b.Disciplina,
+    b.link_curso,
+    b.Unidade,
+    b.Turma,
+    CASE
+        WHEN b.inicio IS NULL THEN 'Sem data de início'
+        ELSE TO_CHAR(b.inicio, 'DD/MM/YYYY')
+    END AS "Data início inscrição",
+    CASE
+        WHEN b.termino IS NULL THEN 'Sem data de fim'
+        ELSE TO_CHAR(b.termino, 'DD/MM/YYYY')
+    END AS "Data fim inscrição",
+    b.nome_completo,
+    CASE
+        WHEN b.timeaccess IS NULL THEN 'Nunca acessou a disciplina'
+        ELSE TO_CHAR(
+            TO_TIMESTAMP(b.timeaccess) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00',
+            'DD/MM/YYYY HH24:MI:SS'
+        )
+    END AS "Ultimo acesso a sala",
+	CASE
+        WHEN da.total_segundos IS NULL THEN 'Nunca acessou'
+        ELSE TRIM(
+            BOTH FROM
+            CONCAT(
+                CASE
+                    WHEN EXTRACT(hour FROM make_interval(secs => da.total_segundos)) > 0 
+                    THEN EXTRACT(hour FROM make_interval(secs => da.total_segundos)) || 'h '
+                    ELSE ''
+                END,
+                EXTRACT(minute FROM make_interval(secs => da.total_segundos)) || 'min'
+            )
+        )
+    END AS "Tempo de dedicacao",
+    CASE 
+    	WHEN g.finalgrade_curso IS NULL THEN 'Sem nota'
+    ELSE ROUND(g.finalgrade_curso, 1)::text 
+	END AS "Finalgrade"
+FROM base_data b
+LEFT JOIN grades_pivot g ON g.courseid = b.id_disciplina AND g.userid = b.userid
+LEFT JOIN dedicacao_alunos da ON da.userid = b.userid AND da.courseid = b.id_disciplina
+ORDER BY 1,2,3,4,6,10;

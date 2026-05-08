@@ -1,0 +1,71 @@
+select 
+count(*)
+
+from mdl_user_enrolments ue
+inner join mdl_enrol e on e.id = ue.enrolid
+inner join mdl_course c on c.id = e.courseid and e.enrol = 'manual'
+inner join mdl_course_categories cc on cc.id = c.category and cc.path like '%/19029/%' and cc.name like '%PERIODO%'
+inner join mdl_user u on u.id = userid
+inner join mdl_role_assignments ra on
+  ra.userid = ue.userid
+  and (ra.roleid = 5 or ra.roleid = 22)
+inner join mdl_context ct on
+  ct.contextlevel = 50
+  and ct.id = ra.contextid
+  and ct.instanceid = e.courseid
+inner join mdl_groups g on g.courseid = e.courseid
+inner join mdl_groups_members gm on gm.groupid = g.id and gm.userid = ue.userid
+
+WHERE ue.timeend < EXTRACT(EPOCH FROM NOW())
+
+
+####################################
+
+
+select 
+cc.name as "Nome do Curso",
+c.fullname as "Nome da disciplina",
+concat(u.firstname, ' ', u.lastname) as "Nome do aluno",
+TO_CHAR(TO_TIMESTAMP(ue.timeend), 'DD/MM/YYYY HH24:MI:SS') as "Data fim",
+ra.roleid,
+g.name
+
+from mdl_user_enrolments ue
+inner join mdl_enrol e on e.id = ue.enrolid
+inner join mdl_course c on c.id = e.courseid and e.enrol = 'manual'
+inner join mdl_course_categories cc on cc.id = c.category and cc.path like '%/19029/%' and cc.name like '%PERIODO%'
+inner join mdl_user u on u.id = userid
+inner join mdl_role_assignments ra on
+  ra.userid = ue.userid
+  and (ra.roleid = 5 or ra.roleid = 22)
+inner join mdl_context ct on
+  ct.contextlevel = 50
+  and ct.id = ra.contextid
+  and ct.instanceid = e.courseid
+inner join mdl_groups g on g.courseid = e.courseid
+inner join mdl_groups_members gm on gm.groupid = g.id and gm.userid = ue.userid
+
+WHERE ue.timeend < EXTRACT(EPOCH FROM NOW())
+
+order by 1,2,3
+limit 1000
+
+###################################################
+
+UPDATE mdl_user_enrolments ue
+SET 
+    status = 0,
+    timeend = EXTRACT(EPOCH FROM NOW()) + (1 * 3600)
+WHERE (enrolid, userid) IN (
+    SELECT e.id, ue.userid
+    FROM mdl_user_enrolments ue
+    INNER JOIN mdl_enrol e ON ue.enrolid = e.id AND e.enrol = 'manual'
+    INNER JOIN mdl_course c ON c.id = e.courseid
+    INNER JOIN mdl_course_categories cc ON cc.id = c.category AND cc.path LIKE '%/19029/%' AND cc.name LIKE '%PERIODO%'
+    INNER JOIN mdl_user u ON u.id = ue.userid
+    INNER JOIN mdl_role_assignments ra ON ra.userid = ue.userid AND (ra.roleid = 5 OR ra.roleid = 22)
+    INNER JOIN mdl_context ct ON ct.contextlevel = 50 AND ct.id = ra.contextid AND ct.instanceid = e.courseid
+    INNER JOIN mdl_groups g ON g.courseid = e.courseid
+    INNER JOIN mdl_groups_members gm ON gm.groupid = g.id AND gm.userid = ue.userid
+    WHERE ue.timeend < EXTRACT(EPOCH FROM NOW())
+);

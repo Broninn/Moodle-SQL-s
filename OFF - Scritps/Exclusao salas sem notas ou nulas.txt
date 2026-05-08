@@ -1,0 +1,48 @@
+-- SELECT DA CATEGORIA
+select cc.id
+from mdl_course as c 
+inner join mdl_course_categories cc on cc.id = c.category and 
+cc."path" like '%/7413%' and cc.name not like '%PERIODO%'
+
+--SELECT DA CATEGORIA COM NOTAS
+SELECT c.id, c.fullname, cc.name, cc.id as id_category, SUM(COALESCE(gg.finalgrade, 0)) AS total_finalgrade
+FROM mdl_course c
+INNER JOIN mdl_grade_items gi ON gi.courseid = c.id
+INNER JOIN mdl_grade_grades gg ON gg.itemid = gi.id
+INNER JOIN mdl_course_categories cc ON cc.id = c.category 
+AND cc."path" LIKE '%/6357/%' and cc.name not like '%PERIODO%'
+GROUP BY c.id, c.fullname, cc.name, id_category
+HAVING SUM(COALESCE(gg.finalgrade, 0)) > 0;
+
+--SELECT DA CATEGORIA NOTA 0 OU NULA
+SELECT c.id, c.fullname, cc.name, cc.id as id_category, SUM(COALESCE(gg.finalgrade, 0)) AS total_finalgrade
+FROM mdl_course c
+INNER JOIN mdl_grade_items gi ON gi.courseid = c.id
+INNER JOIN mdl_grade_grades gg ON gg.itemid = gi.id
+INNER JOIN mdl_course_categories cc ON cc.id = c.category 
+AND cc."path" LIKE '%/6357/%' and cc.name not like '%PERIODO%'
+GROUP BY c.id, c.fullname, cc.name, id_category
+HAVING SUM(COALESCE(gg.finalgrade, 0)) = 0;
+
+--categorias vazias de integração
+SELECT
+    *
+FROM
+    mdl_course_categories cc
+    INNER JOIN mdl_context c on c.instanceid = cc.id
+    and c.contextlevel = 40
+WHERE
+    (
+        cc.path LIKE '%/6357/%'
+        AND cc.name LIKE '%APB-%'
+    )
+
+-- SELECT DA CATEGORIA PARA BACKUPS
+select *
+from mdl_course as c 
+inner join mdl_course_categories cc on cc.id = c.category and 
+cc."path" like '%/6357%'
+INNER JOIN mdl_context ctx on ctx.instanceid = cc.id
+and ctx.contextlevel = 40
+AND cc.name LIKE '%APB-%'
+order by cc.name

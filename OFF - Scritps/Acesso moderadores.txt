@@ -1,0 +1,151 @@
+-- moderadores
+WITH salas AS (
+  SELECT 
+    c.id as "Sala",
+    c.fullname as "Disciplina",
+    cc2.name AS "Curso",
+    cc3.name AS "Mediação",
+    CC4.name as "Periodo"
+  FROM mdl_course c
+  INNER JOIN mdl_course_categories cc ON cc.id = c.category AND cc.path LIKE '%/68/%'
+  INNER JOIN mdl_course_categories cc2 ON cc2.id = cc.parent AND cc2.name NOT LIKE '%PERIODO%'
+  INNER JOIN mdl_course_categories cc3 ON cc3.id = cc2.parent
+  INNER JOIN mdl_course_categories cc4 ON cc4.id = cc3.parent -- and cc3.path like '%/64/65/68/25558/25560%'-- AND c.id = 34660
+  INNER JOIN mdl_course_categories cc5 ON cc5.id = cc4.parent and (cc4.name like '%2025%' or cc4.name like '%2026%')
+),
+turmas_base AS (
+  SELECT DISTINCT
+    s."Sala" as course_id,
+    g.id as group_id,
+    s."Disciplina" AS "Disciplina",
+    COALESCE(LEFT(g.name, LENGTH(g.name) - 5), 'Sem turma') AS "Turma",
+    gpn."name" AS "Unidade",
+    CONCAT('https://ava.fiep.digital/user/index.php?id=', s."Sala") AS link_curso
+  FROM salas s
+  INNER JOIN mdl_groupings gpn ON gpn.courseid = s."Sala" AND gpn.idnumber IS NOT NULL AND gpn.idnumber != ''
+  INNER JOIN mdl_groupings_groups gpg ON gpg.groupingid = gpn.id
+  INNER JOIN mdl_groups g ON g.id = gpg.groupid AND g.courseid = s."Sala"
+  INNER JOIN mdl_groups_members gm ON gm.groupid = g.id
+  INNER JOIN mdl_context ctx ON ctx.instanceid = s."Sala" AND ctx.contextlevel = 50
+  INNER JOIN mdl_role_assignments ra ON ra.contextid = ctx.id AND ra.roleid = 5 AND ra.userid = gm.userid
+  WHERE s."Disciplina" LIKE '%2025%' or s."Disciplina" LIKE '%2026%'
+),
+moderadores AS (
+  SELECT DISTINCT
+    s."Sala" as course_id,
+    gp.id as group_id,
+    u.id as moderador_id,
+    CONCAT(u.firstname, ' ', u.lastname) AS nome_moderador,
+    ue.timestart,
+    ue.timeend,
+    ula.timeaccess
+  FROM mdl_user_enrolments ue
+  JOIN mdl_enrol e ON e.id = ue.enrolid AND e.enrol = 'manual'
+  JOIN mdl_user u ON u.id = ue.userid
+  INNER JOIN salas s on s."Sala" = e.courseid
+  INNER JOIN mdl_groups gp ON gp.courseid = s."Sala"
+  INNER JOIN mdl_groups_members gpm ON gpm.groupid = gp.id AND gpm.userid = u.id
+  LEFT JOIN mdl_user_lastaccess ula ON ula.userid = u.id AND ula.courseid = s."Sala"
+  INNER JOIN mdl_role_assignments ra ON ra.userid = u.id AND ra.roleid = 4
+  INNER JOIN mdl_context ct ON ct.contextlevel = 50 AND ct.id = ra.contextid AND ct.instanceid = s."Sala"
+  WHERE ue.status = 0 AND (s."Disciplina" LIKE '%2025%' or s."Disciplina" LIKE '%2026%')
+),
+dedicacao_moderadores AS (
+  SELECT 
+    bd.userid, 
+    bd.courseid, 
+    SUM(bd.timespent) AS total_segundos
+  FROM mdl_block_dedication bd
+  LEFT JOIN moderadores m ON bd.userid = m.moderador_id AND bd.courseid = m.course_id
+  WHERE bd.courseid IN (SELECT "Sala" FROM salas)
+  GROUP BY userid, courseid
+),
+alunos_count AS (
+  SELECT 
+    e.courseid, 
+    g.id as group_id,
+    COUNT(DISTINCT ue.userid) AS total_alunos
+  FROM mdl_user_enrolments ue 
+  INNER JOIN mdl_enrol e ON ue.enrolid = e.id AND e.enrol = 'manual'
+  INNER JOIN salas s on s."Sala" = e.courseid
+  INNER JOIN mdl_context ctx ON ctx.instanceid = s."Sala" AND ctx.contextlevel = 50
+  INNER JOIN mdl_role_assignments ra ON ra.contextid = ctx.id AND ra.roleid = 5 AND ra.userid = ue.userid
+  INNER JOIN mdl_groups_members gm ON gm.userid = ue.userid
+  INNER JOIN mdl_groups g ON g.id = gm.groupid AND g.courseid = e.courseid
+  WHERE ue.status = 0 AND (s."Disciplina" LIKE '%2025%' or s."Disciplina" LIKE '%2026%')
+  GROUP BY e.courseid, g.id
+)
+SELECT
+    s."Periodo",
+    s."Mediação",
+    s."Curso",
+    s."Disciplina",
+    COALESCE(m.nome_moderador, 'Sem moderador vinculado') AS "Nome_completo", 
+    tb."Turma",
+	
+    tb."Unidade",
+    CASE
+        WHEN m.nome_moderador IS NULL THEN 'Sem moderador vinculado'
+        WHEN u.firstaccess IS NULL THEN 'Nunca fez login'
+        ELSE TO_CHAR(
+            TO_TIMESTAMP(u.firstaccess) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00',
+            'DD/MM/YYYY HH24:MI:SS'
+        )
+    END AS "Primeiro login na plataforma",
+    CASE
+        WHEN m.nome_moderador IS NULL THEN 'Sem moderador vinculado' 
+        WHEN u.lastaccess IS NULL THEN 'Nunca acessou a plataforma'
+		WHEN u.lastaccess < 1582023948 THEN 'Nunca acessou a plataforma'
+        ELSE TO_CHAR(
+            TO_TIMESTAMP(u.lastaccess) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00',
+            'DD/MM/YYYY HH24:MI:SS'
+        )
+    END AS "Ultimo login na plataforma",	
+    CASE
+        WHEN m.nome_moderador IS NULL THEN 'Sem moderador vinculado'
+        WHEN m.timeaccess IS NULL THEN 'Nunca acessou a disciplina'
+        ELSE TO_CHAR(
+            TO_TIMESTAMP(m.timeaccess) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00',
+            'DD/MM/YYYY HH24:MI:SS'
+        )
+    END AS "Ultimo acesso a sala",
+    CASE
+        WHEN dm.total_segundos IS NULL THEN 'Nunca acessou'
+        ELSE TRIM(
+            BOTH FROM
+            CONCAT(
+                CASE
+                    WHEN EXTRACT(hour FROM make_interval(secs => dm.total_segundos)) > 0 
+                    THEN EXTRACT(hour FROM make_interval(secs => dm.total_segundos)) || 'h '
+                    ELSE ''
+                END,
+                EXTRACT(minute FROM make_interval(secs => dm.total_segundos)) || 'min'
+            )
+        )
+    END AS "Tempo de dedicacao",
+    CASE
+        WHEN m.nome_moderador IS NULL THEN 'Sem moderador vinculado'
+        WHEN m.timestart IS NULL THEN 'Sem data de início'
+        ELSE TO_CHAR(
+            TO_TIMESTAMP(m.timestart) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00',
+            'DD/MM/YYYY'
+        )
+    END AS "Data início inscrição",
+    CASE
+        WHEN m.nome_moderador IS NULL THEN 'Sem moderador vinculado'
+        WHEN m.timeend IS NULL OR m.timeend = 0 THEN 'Sem data de fim'
+        ELSE TO_CHAR(
+            TO_TIMESTAMP(m.timeend) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00',
+            'DD/MM/YYYY'
+        )
+    END AS "Data fim inscrição",
+    tb.link_curso,
+    COALESCE(ac.total_alunos, 0) AS total_alunos_turma
+FROM turmas_base tb
+LEFT JOIN moderadores m ON m.course_id = tb.course_id AND m.group_id = tb.group_id
+LEFT JOIN mdl_user u ON u.id = m.moderador_id
+LEFT JOIN dedicacao_moderadores dm ON dm.userid = m.moderador_id AND dm.courseid = m.course_id
+LEFT JOIN alunos_count ac ON ac.courseid = tb.course_id AND ac.group_id = tb.group_id
+LEFT JOIN salas s ON s."Sala" = tb.course_id
+ORDER BY
+    s."Periodo", s."Curso", s."Disciplina", tb."Turma", tb."Unidade", "Nome_completo"

@@ -1,0 +1,17 @@
+-- role assign/unassign
+select 
+ra.roleid, 
+ue.userid, 
+ct.id, 
+case when ct.contextlevel = 50 then 'course' end as contextlevel, 
+ct.instanceid  from mdl_course c
+inner join mdl_enrol e on e.courseid = c.id and e.enrol = 'manual'
+inner join mdl_user_enrolments ue on ue.enrolid = e.id
+inner join mdl_role_assignments ra on ra.userid = ue.userid and ra.roleid = 3
+inner join mdl_context ct on
+  ct.contextlevel = 50
+  and ct.id = ra.contextid
+  and ct.instanceid = c.id
+inner join mdl_user u on u.id = ue.userid
+
+where c.fullname =  

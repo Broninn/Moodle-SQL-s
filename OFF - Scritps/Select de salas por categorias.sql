@@ -1,6 +1,15 @@
 select c.id, c.fullname, cc.path
 from mdl_course as c 
-inner join mdl_course_categories cc on cc.id = c.category and cc."path" like '%/6028%'
+inner join mdl_course_categories cc on cc.id = c.category and 
+cc."path" like '%/6028%'
+
+
+select cc2.name as curso, CONCAT('https://ava.fiep.digital/course/view.php?id=',c.id) as linksala, c.fullname as nomedisciplina
+from mdl_course as c 
+inner join mdl_course_categories cc on cc.id = c.category and cc."path" like '%/15950/%'
+inner join mdl_course_categories cc2 on cc2.id = cc.parent
+order by 1
+
 
 select c.id, c.fullname, c.shortname, cc.path, gc.id, gc.fullname, gc.aggregateonlygraded 
 from mdl_course as c 

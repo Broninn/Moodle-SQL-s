@@ -1,0 +1,62 @@
+WITH professores_turmas AS (
+  SELECT DISTINCT
+    g.courseid AS id_disciplina,
+    c.fullname AS disciplina,
+    gm.userid AS prof_id,
+    r.shortname AS papel,
+    g.name AS turma_prof,
+    gn.name AS unidade_prof,
+    MAX(mcc3.name) AS periodoletivo,
+    MAX(mcc2.name) AS mcc2,
+    MAX(mcc.name) AS mcc,
+    MAX(cc.name) AS curso
+  FROM mdl_groups_members gm
+  INNER JOIN mdl_groups g ON g.id = gm.groupid 
+  INNER JOIN mdl_course c ON c.id = g.courseid
+  LEFT JOIN mdl_groupings_groups gg ON gg.groupid = g.id
+  LEFT JOIN mdl_groupings gn ON gn.id = gg.groupingid
+  INNER JOIN mdl_context ctx ON ctx.instanceid = c.id AND ctx.contextlevel = 50
+  INNER JOIN mdl_role_assignments ra ON ra.contextid = ctx.id AND ra.userid = gm.userid AND ra.roleid IN (4)
+  INNER JOIN mdl_role r ON r.id = ra.roleid
+  INNER JOIN mdl_course_categories cc ON cc.id = c.category
+  INNER JOIN mdl_course_categories mcc ON mcc.id = cc.parent
+  INNER JOIN mdl_course_categories mcc2 ON mcc2.id = mcc.parent
+  INNER JOIN mdl_course_categories mcc3 ON mcc3.id = mcc2.parent
+  WHERE cc."path" ~ '/68/' AND cc.name LIKE '%PERIODO%' AND c.fullname LIKE '% 2025.%' AND mcc3.name != '2025'
+  GROUP BY g.courseid, c.fullname, gm.userid, r.shortname, g.name, gn.name
+),
+alunos_turmas AS (
+  SELECT 
+    e.courseid, 
+    gm.userid AS aluno_id, 
+    g.name AS turma, 
+    gn.name AS unidade
+  FROM mdl_user_enrolments ue 
+  INNER JOIN mdl_enrol e ON ue.enrolid = e.id AND e.enrol = 'manual'
+  INNER JOIN mdl_course c ON c.id = e.courseid
+  INNER JOIN mdl_groups_members gm ON gm.userid = ue.userid
+  INNER JOIN mdl_groups g ON g.id = gm.groupid AND g.courseid = e.courseid
+  LEFT JOIN mdl_groupings_groups gg ON gg.groupid = g.id
+  LEFT JOIN mdl_groupings gn ON gn.id = gg.groupingid
+  WHERE ue.status = 0
+)
+SELECT 
+  pt.periodoletivo, 
+  pt.mcc2,
+  pt.mcc,
+  pt.disciplina, 
+  TRIM(u_prof.firstname || ' ' || u_prof.lastname) AS nome_professor,
+  pt.papel, 
+  pt.unidade_prof,
+  pt.turma_prof,
+  COUNT(DISTINCT at.aluno_id) AS total_alunos_turma
+FROM professores_turmas pt
+INNER JOIN alunos_turmas at ON at.courseid = pt.id_disciplina 
+  AND at.turma = pt.turma_prof
+INNER JOIN mdl_user u_prof ON u_prof.id = pt.prof_id
+GROUP BY 
+  pt.periodoletivo,
+  pt.mcc2,
+  pt.mcc, pt.disciplina, pt.papel, pt.unidade_prof, pt.turma_prof,
+  u_prof.firstname, u_prof.lastname
+ORDER BY 1,2,3,4,5,8

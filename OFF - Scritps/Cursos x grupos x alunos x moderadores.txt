@@ -1,0 +1,120 @@
+-- Cursos
+SELECT 
+    cc4.name AS "Periodo",
+    cc3.name AS "Mediação",
+    TRIM(SPLIT_PART(cc2.name, '-', 1)) AS "Curso",
+    TRIM(SPLIT_PART(cc2.name, '-', 2)) AS "Matriz Curricular",
+    c.fullname AS "Disciplina",
+    prof.nome_professor AS "Nome do Tutor",
+    CONCAT('https://ava.fiep.digital/user/index.php?id=', c.id) AS "Link da Sala",
+    COUNT(DISTINCT g.id) AS "Total de Turmas",
+    COUNT(DISTINCT CASE WHEN ra.roleid IN (4,5) THEN ra.userid END) AS "Total de Usuarios na Sala",
+    COUNT(DISTINCT CASE WHEN ra.roleid = 5 THEN ra.userid END) AS "Total de Alunos",
+    COUNT(DISTINCT CASE 
+        WHEN ra.roleid = 5
+         AND ue.timeend > EXTRACT(EPOCH FROM NOW())
+        THEN ra.userid
+    END) AS "Total de Alunos Ativos",
+
+    COUNT(DISTINCT CASE WHEN ra.roleid = 4 THEN ra.userid END) AS "Total de Moderadores",
+
+    COUNT(DISTINCT CASE 
+        WHEN ra.roleid = 4
+         AND ue.timeend > EXTRACT(EPOCH FROM NOW())
+        THEN ra.userid
+    END) AS "Total de Moderadores Ativos",
+
+    TO_CHAR(
+        TO_TIMESTAMP(MIN(ue.timestart)),
+        'DD/MM/YYYY'
+    ) AS "Data de início",
+
+    TO_CHAR(
+        TO_TIMESTAMP(MAX(
+            CASE
+                WHEN ue.timeend > 0 THEN ue.timeend
+            END
+        )),
+        'DD/MM/YYYY'
+    ) AS "Data Fim",
+
+    CASE
+        WHEN MAX(CASE WHEN ue.timeend > 0 THEN ue.timeend END) < EXTRACT(EPOCH FROM NOW())
+            THEN 'encerrada'
+
+        WHEN MIN(ue.timestart) < EXTRACT(EPOCH FROM NOW())
+         AND MAX(CASE WHEN ue.timeend > 0 THEN ue.timeend END) > EXTRACT(EPOCH FROM NOW())
+            THEN 'ativa'
+
+        ELSE 'futura'
+    END AS status
+
+FROM mdl_course c
+
+INNER JOIN mdl_context ctx
+    ON ctx.instanceid = c.id
+   AND ctx.contextlevel = 50
+
+INNER JOIN mdl_role_assignments ra
+    ON ra.contextid = ctx.id
+   AND ra.roleid IN (4,5)
+
+INNER JOIN mdl_course_categories cc
+    ON cc.id = c.category
+   AND cc.path LIKE '%/68/%'
+
+INNER JOIN mdl_course_categories cc2
+    ON cc2.id = cc.parent
+   AND cc2.name NOT LIKE '%PERIODO%'
+
+INNER JOIN mdl_course_categories cc3
+    ON cc3.id = cc2.parent
+
+INNER JOIN mdl_course_categories cc4
+    ON cc4.id = cc3.parent
+
+INNER JOIN mdl_course_categories cc5
+    ON cc5.id = cc4.parent
+   AND (cc4.name LIKE '%2025%' OR cc4.name LIKE '%2026%')
+
+LEFT JOIN mdl_groups g
+    ON g.courseid = c.id
+
+LEFT JOIN mdl_user_enrolments ue
+    ON ue.userid = ra.userid
+   AND ue.enrolid IN (
+        SELECT id
+        FROM mdl_enrol
+        WHERE courseid = c.id
+   )
+   AND ue.timestart > 1609459200
+
+LEFT JOIN (
+    SELECT
+        e.courseid,
+        MAX(CONCAT(u.firstname, ' ', u.lastname)) AS nome_professor
+    FROM mdl_enrol e
+    INNER JOIN mdl_cohort_members chm
+        ON chm.cohortid = e.customint1
+    INNER JOIN mdl_user u
+        ON u.id = chm.userid
+    WHERE e.enrol = 'cohort'
+      AND e.customint1 != 285
+    GROUP BY e.courseid
+) prof
+    ON prof.courseid = c.id
+
+WHERE c.id > 1
+
+GROUP BY
+    c.id,
+    c.fullname,
+    cc2.name,
+    cc3.name,
+    cc4.name,
+    prof.nome_professor
+
+HAVING COUNT(DISTINCT CASE WHEN ra.roleid IN (4,5) THEN ra.userid END) > 0
+   AND COUNT(DISTINCT g.id) > 0
+
+ORDER BY 1,2,3,4;

@@ -1,0 +1,184 @@
+-- Agrupado
+
+SELECT 
+    ccat4.name AS "Período",
+    ccat2.name AS "Curso",
+    CONCAT('%%WWWROOT%%/course/view.php%%Q%%id=', c.id) AS "Link da sala",
+    c.fullname as "Disciplina",
+    COUNT(ue.userid) AS "Total de Inscritos",
+    COUNT(cc.userid) FILTER (WHERE cc.timecompleted IS NOT NULL) AS "Concluintes",
+    (COUNT(ue.userid) - COUNT(cc.userid) FILTER (WHERE cc.timecompleted IS NOT NULL)) AS "Evadidos",
+    ROUND(
+        ((COUNT(ue.userid) - COUNT(cc.userid) FILTER (WHERE cc.timecompleted IS NOT NULL)) 
+        / NULLIF(COUNT(ue.userid), 0)::decimal) * 100, 2
+    ) AS "Taxa de evasao"
+FROM mdl_course c
+LEFT JOIN mdl_enrol e ON e.courseid = c.id and c.shortname LIKE '%2025%'
+LEFT JOIN mdl_user_enrolments ue ON ue.enrolid = e.id
+inner join mdl_role_assignments ra on ra.userid = ue.userid and ra.roleid = 5
+inner join mdl_context ct on ct.contextlevel = 50 and ct.id = ra.contextid and ct.instanceid = c.id
+LEFT JOIN mdl_course_completions cc ON cc.course = c.id AND cc.userid = ue.userid
+INNER JOIN mdl_course_categories ccat ON ccat.id = c.category AND ccat."path" LIKE '%/68/%' and ccat.name like '%1%'
+INNER JOIN mdl_course_categories ccat2 ON ccat2.id = ccat.parent and ccat2.name not like '%PERIO%'
+INNER JOIN mdl_course_categories ccat3 ON ccat3.id = ccat2.parent 
+INNER JOIN mdl_course_categories ccat4 ON ccat4.id = ccat3.parent 
+GROUP BY ccat4.name,ccat2.name, c.fullname, c.id
+ORDER BY ccat4.name,ccat2.name, "Taxa de evasao" DESC
+
+
+
+-- Individual
+
+SELECT
+    CONCAT (u.firstname, ' ', u.lastname) AS "Nome completo",
+    COALESCE(grp.groupname, 'Sem grupo') AS "Turma",
+    CASE
+        WHEN ue.timestart = 0 THEN 'Aluno egresso'
+        ELSE TO_CHAR (
+            TO_TIMESTAMP (ue.timestart) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00',
+            'DD/MM/YYYY HH24:MI:SS'
+        )
+    END AS "Data início turma disciplina",
+    CASE
+        WHEN ue.timeend = 0 THEN 'Aluno egresso'
+        ELSE TO_CHAR (
+            TO_TIMESTAMP (ue.timeend) AT TIME ZONE 'UTC' AT TIME ZONE INTERVAL '+03:00',
+            'DD/MM/YYYY HH24:MI:SS'
+        )
+    END AS "Data fim turma disciplina",
+    CASE
+        WHEN SUM(bd.timespent) IS NULL THEN 'Nunca acessou'
+        ELSE TRIM(
+            BOTH
+            FROM
+                CONCAT (
+                    CASE
+                        WHEN EXTRACT(
+                            hour
+                            FROM
+                                make_interval (secs => SUM(bd.timespent))
+                        ) > 0 THEN EXTRACT(
+                            hour
+                            FROM
+                                make_interval (secs => SUM(bd.timespent))
+                        ) || 'h '
+                        ELSE ''
+                    END,
+                    EXTRACT(
+                        minute
+                        FROM
+                            make_interval (secs => SUM(bd.timespent))
+                    ) || 'min'
+                )
+        )
+    END AS "tempo de acesso",
+    /*COUNT(DISTINCT ccc.criteriaid) AS criterios_aluno,
+    (
+        SELECT
+            COUNT(*)
+        FROM
+            mdl_course_completion_criteria
+        WHERE
+            course = c.id
+    ) AS criterios_totais,*/
+    ROUND(
+        100.0 * (
+            (
+                SELECT
+                    COUNT(*)
+                FROM
+                    mdl_course_completion_criteria
+                WHERE
+                    course = c.id
+            ) - COUNT(DISTINCT ccc.criteriaid)
+        ) / NULLIF(
+            (
+                SELECT
+                    COUNT(*)
+                FROM
+                    mdl_course_completion_criteria
+                WHERE
+                    course = c.id
+            ),
+            0
+        )
+    ,1) || '%' AS "Porcentagem pendente",
+    CASE
+        WHEN TO_TIMESTAMP (ue.timestart) > NOW () THEN 'A iniciar'
+        --WHEN COUNT(DISTINCT ccc.criteriaid) = 0 THEN 'Possível evasão'
+        WHEN COUNT(DISTINCT ccc.criteriaid) < (
+            SELECT
+                COUNT(*)
+            FROM
+                mdl_course_completion_criteria
+            WHERE
+                course = c.id
+        )
+        AND ue.timeend > 0
+        AND TO_TIMESTAMP (ue.timeend) > NOW () THEN 'Em andamento'
+        WHEN COUNT(DISTINCT ccc.criteriaid) < (
+            SELECT
+                COUNT(*)
+            FROM
+                mdl_course_completion_criteria
+            WHERE
+                course = c.id
+        ) THEN 'Possível evasão' -- aluno com critérios incompletos, mas data final já passou
+        ELSE 'Concluído'
+    END AS "Status"
+FROM
+    mdl_course c
+    LEFT JOIN mdl_enrol e ON e.courseid = c.id
+    AND c.id = 32475
+    LEFT JOIN mdl_user_enrolments ue ON ue.enrolid = e.id
+    INNER JOIN mdl_role_assignments ra ON ra.userid = ue.userid
+    AND ra.roleid = 5
+    INNER JOIN mdl_context ct ON ct.contextlevel = 50
+    AND ct.id = ra.contextid
+    AND ct.instanceid = c.id
+    LEFT JOIN mdl_user u ON u.id = ue.userid
+    LEFT JOIN (
+        SELECT
+            gm.userid,
+            STRING_AGG (g.name, ', ') AS groupname
+        FROM
+            mdl_groups_members gm
+            JOIN mdl_groups g ON g.id = gm.groupid
+        WHERE
+            g.courseid = 32475
+        GROUP BY
+            gm.userid
+    ) grp ON grp.userid = u.id
+    LEFT JOIN mdl_block_dedication bd ON bd.courseid = c.id
+    AND bd.userid = u.id
+    LEFT JOIN mdl_course_completion_crit_compl ccc ON ccc.userid = u.id
+    AND ccc.course = c.id
+GROUP BY
+    u.id,
+    u.firstname,
+    u.lastname,
+    grp.groupname,
+    ue.timestart,
+    ue.timeend,
+    c.id
+ORDER BY
+    1;
+
+-- Consultar salas sem conclusões
+select 
+    ccat4.name AS "Período",
+    ccat2.name AS "Curso",
+    CONCAT('%%WWWROOT%%/course/view.php%%Q%%id=', c.id) AS "Link da sala",
+    c.fullname as "Disciplina",
+    c.id,
+    count(ccc.course)
+from mdl_course c
+left join mdl_course_completion_criteria ccc on c.id = ccc.course 
+INNER JOIN mdl_course_categories ccat ON ccat.id = c.category AND ccat."path" LIKE '%/68/%'
+INNER JOIN mdl_course_categories ccat2 ON ccat2.id = ccat.parent and ccat2.name not like '%PERIO%'
+INNER JOIN mdl_course_categories ccat3 ON ccat3.id = ccat2.parent 
+INNER JOIN mdl_course_categories ccat4 ON ccat4.id = ccat3.parent 
+where c.shortname LIKE '%2025%'
+group by ccat4.name,ccat2.name, c.id, ccc.course
+HAVING SUM(COALESCE(ccc.course, 0)) = 0 --and ccc.course = 0
+ORDER BY ccat4.name,ccat2.name DESC
